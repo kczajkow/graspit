@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<root>
+    <material>rubber</material>
+    <youngs>100</youngs>
+    <mass>10</mass>
+    <geometryFile type="Inventor">yoke2_sim.iv</geometryFile>
+</root>
