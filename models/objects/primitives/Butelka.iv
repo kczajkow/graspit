@@ -1,0 +1,20 @@
+#Inventor V2.1 ascii
+#glass
+#200
+
+Separator { # Body
+        Transform { translation 0 0 0 }
+        Material { # A bronze color:
+            ambientColor .33 .22 .27
+            diffuseColor .78 .57 .11
+            specularColor .99 .94 .81
+            shininess .28
+	    transparency .6
+        }
+        Cone { bottomRadius 50 height 100 }
+	Separator {
+		Transform { translation 0 50 0 }
+		Cylinder { radius 12 height 80 }
+	}
+}
+

@@ -1,0 +1,23 @@
+#GraspIt! version 2.0 beta
+Obstacle
+models/obstacles/simpleFloor.iv
+wood
+T (+1 0 0 0)[0 0 0]
+
+Obstacle
+models/obstacles/table.iv
+wood
+T (+1 0 0 0)[0 0 0]
+
+GraspableBody
+models/objects/Testy/primitives/Walec.iv
+T (+0.991721 -0.00573379 +0.119333 +0.0470772)[+5.81649 +519.849 -490.225]
+
+Robot
+models/robots/BarrettMyTest2soft/BarrettMyTest2.cfg
+-0.00239301 +0.0109325 +0.00497199 -0.00194488 +0.0109532 +0.00497199 -0.00194488 +0.0109532 +0.00497199 
+T (-0.00733326 -0.726523 +0.687044 -0.00902717)[-2.23915 +546.334 -313.477]
+
+CameraFull
+-240.235 +867.952 -176.21 -0.100544 +0.528491 +0.809145 -0.236373 +876.321
+

@@ -1,0 +1,37 @@
+#Inventor V2.1 ascii
+#plastic
+#200
+
+Separator { # Body
+	  Transform { translation 0 0 0 }
+	  Material { # A bronze color:
+	  ambientColor .33 .22 .27
+	  diffuseColor .78 .57 .11
+          specularColor .99 .94 .81
+          shininess .28
+	  transparency .6
+	  }
+	  Cube { width 120 height 40 depth 80}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
