@@ -1,5 +1,5 @@
                                  GraspIt!
-                              Version 2.0 beta
+                              Version 2.1.0 
 
 Introduction
 ------------
@@ -39,23 +39,32 @@ include/      -  Header files for the main GraspIt! source code
 LICENSE.txt   -  A copy of the license you accepted when you downloaded this.
 
 matlab/       -  MEX c-files that compile into matlab functions that can
-		 communicate and interact with the GraspIt! system.
+		     communicate and interact with the GraspIt! system.
 
 models/       -  The geometry and configuration files for all the robots and
-	         objects.
+		objects.
 
-qhull/	      -  A popular package for computing n-dimensional convex hulls.
-		 This is use both for the contact system and to create grasp
-	         wrench spaces.
+qhull/	  - A popular package for computing n-dimensional convex hulls.
+		This is used both for the contact system and to create grasp
+	      wrench spaces.
 
 README.txt    -  This file.
 
 src/          -  The source code for GraspIt!.
 
-ui/	      -  The dialog windows and interfaces for GraspIt!.
+src/DBase     - source code for the interface between GraspIt and the Columbia 
+		Grasp Database
+
+tinyxml/	  - a library for processing XML documents. See the header files 
+		therein for license and author information for this package.
+
+ui/	        -  The dialog windows and interfaces for GraspIt!.
 
 worlds/       -  A place to save GraspIt! worlds.  Also includes a few
-	         examples.
+		examples.
+
+xmlconverter/ -  A stand-alone utility for converting old GraspIt files
+		(such as .cfg and .wld) to the new XML-based format.
 
 
 Troubleshooting

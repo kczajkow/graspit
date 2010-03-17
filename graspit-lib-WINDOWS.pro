@@ -1,8 +1,37 @@
 # Windows-specific libraries for GraspIt!. Included from graspit.pro - not for standalone use.
 
-# ---------------------- General libraries and utilities ----------------------------------
 
-LIBS	+= "$(MKLDIR)/ia32/lib/mkl_c_dll.lib"
+# ---------------------- Blas and Lapack----------------------------------------
+
+mkl {
+	!exists($(MKLDIR)) {
+		error("MKL not installed or MKLDIR environment variable not set")
+	}
+	HEADERS += include/mkl_wrappers.h
+	QMAKE_LIBDIR += $(MKLDIR)/ia32/lib
+      LIBS    += mkl_intel_c_dll.lib mkl_intel_thread_dll.lib mkl_core_dll.lib
+	#LIBS    += libiomp5md.lib
+	INCLUDEPATH += $(MKLDIR)/include
+	DEFINES += MKL
+} else : clapack {
+	!exists($(CLAPACKDIR)) {
+		error("Clapack not installed or CLAPACKDIR environment variable not set")
+	}
+	QMAKE_LIBDIR += $(CLAPACKDIR)/ia32/lib $(CLAPACKDIR)/LIB/Win32
+	graspitdbg {
+		LIBS += BLASd.lib clapackd.lib
+	} else {
+		LIBS += BLAS.lib clapack.lib
+	}
+	INCLUDEPATH += $(CLAPACKDIR)/include
+	HEADERS += include/lapack_wrappers.h
+	DEFINES += CLAPACK
+} else {
+	HEADER += include/lapack_wrappers.h
+	message(Warning: no version of Blas /Lapack to link against)
+}
+
+# ---------------------- General libraries and utilities ----------------------------------
 
 graspitdbg {
 	LIBS += qhull/windows/Debug/qhull.lib $(COINDIR)/lib/Coin2d.lib $(COINDIR)/lib/SoQt1d.lib
@@ -10,9 +39,11 @@ graspitdbg {
 	LIBS += qhull/windows/Release/qhull.lib $(COINDIR)/lib/Coin2.lib $(COINDIR)/lib/SoQt1.lib
 }
 
-DEFINES	+= COIN_DLL SOQT_DLL MKL WIN32
+DEFINES	+= COIN_DLL SOQT_DLL WIN32
 
-INCLUDEPATH += "$(MKLDIR)/include"
+# get rid of Windows specific warnings due to unsecure calls to fscanf, fopen etc.
+# this could use a more solid, cross-platform solution
+DEFINES 	+= _CRT_SECURE_NO_DEPRECATE
 
 #------------------------------------ add-ons --------------------------------------------
 
@@ -23,18 +54,6 @@ mosek {
 	INCLUDEPATH += $(MOSEK5_0_INSTALLDIR)/tools/platform/win/h
 	#no separate debug or release versions of the lib
 	LIBS += $(MOSEK5_0_INSTALLDIR)/tools/platform/win/dll/mosek5_0.lib
-}
-
-cgal_qp {
-	!exists($(CGAL_DIR)) {
-		error("CGAL not installed or CGAL environment variable not set")
-	}
-	INCLUDEPATH += $(CGAL_DIR)/include
-	graspitdbg {
-		LIBS += $(CGAL_DIR)/lib/CGAL-vc71-mt-gd.lib
-	} else {
-		LIBS += $(CGAL_DIR)/lib/CGAL-vc71-mt.lib
-	}
 }
 
 boost {
@@ -57,4 +76,8 @@ hardwarelib {
 		LIBS += hardware/Release/HardwareLib.lib
 	}
 	INCLUDEPATH += hardware
+
+	FORMS += ui/sensorInputDlg.ui
+	HEADERS += ui/sensorInputDlg.h
+	SOURCES += ui/sensorInputDlg.cpp
 }

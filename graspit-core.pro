@@ -39,17 +39,20 @@ HEADERS	+= include/barrett.h \
 	include/jacobian.h \
 	include/joint.h \
 	include/kinematicChain.h \
+	include/lmiOptimizer.h \
 	include/material.h \
 	include/matvec3D.h \
 	include/matvecIO.h \
 	include/maxdet.h \
-	include/mkl_wrappers.h \
+	include/mcGrip.h \
 	include/mytools.h \
 	include/profiling.h \
 	include/puma560.h \
 	include/qhull_mutex.h \
 	include/quality.h \
 	include/pr2Gripper.h \
+	include/m7.h \
+	include/m7tool.h \
 	include/robonaut.h \
 	include/robot.h \
 	include/humanHand.h \
@@ -118,14 +121,18 @@ SOURCES	+= src/arch.cpp \
 	src/jacobian.cpp \
 	src/joint.cpp \
 	src/kinematicChain.cpp \
+	src/lmiOptimizer.cpp \
 	src/main.cpp \
 	src/material.cpp \
 	src/matvec.cpp \
 	src/matvecIO.cpp \
 	src/maxdet_src.cpp \
+	src/mcGrip.cpp \
 	src/mytools.cpp \
 	src/profiling.cpp \
 	src/pr2Gripper.cpp \
+	src/m7.cpp \
+	src/m7tool.cpp \
 	src/puma560.cpp \
 	src/quality.cpp \
 	src/robonaut.cpp \
@@ -165,25 +172,10 @@ SOURCES	+= src/arch.cpp \
 
 #--------------------------------------- Implementations of the collision interface ---------------------------------
 
-pqp_collision {
-	DEFINES += PQP_COLLISION
-	INCLUDEPATH += src/Collision/PQP PQP-VCOLLIDE/src PQP-VCOLLIDE/PQP_v1.1/src PQP-VCOLLIDE/ivcollide 
-	DEPENDPATH += PQP-VCOLLIDE/include PQP-VCOLLIDE/PQP_v1.1/src PQP-VCOLLIDE/ivcollide
-	HEADERS	+= src/Collision/PQP/PQPCollision.h
-	SOURCES	+= src/Collision/PQP/PQPCollision.cpp \
-		PQP-VCOLLIDE/src/VCollide.cpp \
-		PQP-VCOLLIDE/src/VInternal.cpp \
-		PQP-VCOLLIDE/src/NBody.cpp \
-		PQP-VCOLLIDE/src/PairData.cpp \
-		PQP-VCOLLIDE/PQP_v1.1/src/Build.cpp \
-		PQP-VCOLLIDE/PQP_v1.1/src/BV.cpp \
-		PQP-VCOLLIDE/PQP_v1.1/src/PQP.cpp \
-		PQP-VCOLLIDE/PQP_v1.1/src/TriDist.cpp \
-		PQP-VCOLLIDE/PQP_v1.1/src/Tri.cpp
-} else:graspit_collision {
+graspit_collision {
 	DEFINES += GRASPIT_COLLISION
 	INCLUDEPATH += src/Collision/Graspit
-    DEPENDPATH += src/Collision/Graspit
+	DEPENDPATH += src/Collision/Graspit
 	HEADERS	+= src/Collision/Graspit/collisionModel.h \
 			   src/Collision/Graspit/collisionAlgorithms.h \
 			   src/Collision/Graspit/collisionAlgorithms_inl.h \
@@ -200,17 +192,19 @@ pqp_collision {
 INCLUDEPATH	+= ui ui/Planner ui/EGPlanner
 DEPENDPATH += ui ui/Planner ui/EGPlanner
 
-FORMS = ui/mainWindow.ui \
+FORMS += ui/mainWindow.ui \
 	ui/about.ui \
 	ui/archBuilderDlg.ui \
 	ui/barrettHandDlg.ui \
 	ui/bodyPropDlg.ui \
 	ui/contactExaminerDlg.ui \
 	ui/eigenGraspDlg.ui \
+	ui/gfoDlg.ui \
 	ui/gloveCalibrationDlg.ui \
 	ui/graspCaptureDlg.ui \
 	ui/gwsProjDlgBase.ui \
 	ui/qmDlg.ui \
+	ui/qualityIndicator.ui \
 	ui/settingsDlg.ui \
 	ui/Planner/plannerdlg.ui \
 	ui/EGPlanner/egPlannerDlg.ui \
@@ -222,6 +216,7 @@ HEADERS += ui/mainWindow.h \
 	ui/bodyPropDlg.h \
 	ui/contactExaminerDlg.h \
 	ui/eigenGraspDlg.h \
+	ui/gfoDlg.h \
 	ui/gloveCalibrationDlg.h \
 	ui/graspCaptureDlg.h \
 	ui/gwsProjDlg.h \
@@ -238,6 +233,7 @@ SOURCES += ui/mainWindow.cpp \
 	ui/bodyPropDlg.cpp \
 	ui/contactExaminerDlg.cpp \
 	ui/eigenGraspDlg.cpp \
+	ui/gfoDlg.cpp \
 	ui/gloveCalibrationDlg.cpp \
 	ui/graspCaptureDlg.cpp \
 	ui/gwsProjDlg.cpp \
@@ -274,13 +270,65 @@ IMAGES	= src/images/play.xpm \
 	src/images/editpaste \
 	src/images/searchfind
 
-#-------------------------------------- Interfaces to QP solvers ------------------------------------------------------
+#-------------------------------------- The TinyXML XML parser ---------------------------------------------------
 
-cgal_qp{
-	DEFINES += CGAL_QP
-	SOURCES += src/math/cgal_qp.cpp
-	HEADERS += src/math/cgal_qp.h
+SOURCES += tinyxml/tinyxmlparser.cpp
+
+HEADERS += tinyxml/tinyxml.h \
+	     tinyxml/tinystr.h
+
+INCLUDEPATH += tinyxml
+
+#-------------------------------------- The Columbia Grasp Database ---------------------------------------------------
+
+cgdb{
+	#library linking for cgdb is in platform specific files
+
+	!exists(src/DBase) {
+		error("CGDB interface code not found")
+	}
+	!exists(src/DBase/DBPlanner) {
+		error("DBPlanner code not found")
+	}
+	!exists($(CGDB_MODEL_ROOT)) {
+		error("CGDB_MODEL_ROOT not set, or directory not found")
+	}
+
+	QT += sql
+
+	INCLUDEPATH += src/DBase src/DBase/DBPlanner
+	DEPENDPATH += src/DBase src/DBase/DBPlanner
+
+	SOURCES += src/DBase/dbaseDlg.cpp \
+		     src/DBase/dbasePlannerDlg.cpp \
+ 		     src/DBase/dbase_grasp.cpp \
+		     src/DBase/graspit_db_model.cpp \
+		     src/DBase/graspit_db_grasp.cpp \
+		     src/DBase/DBPlanner/database.cpp \
+		     src/DBase/DBPlanner/sql_database_manager.cpp \
+		     src/DBase/graspit_db_planner.cpp
+
+	HEADERS += src/DBase/dbaseDlg.h \
+		     src/DBase/dbasePlannerDlg.h \
+		     src/DBase/dbase_grasp.h \
+		     src/DBase/graspit_db_model.h \
+		     src/DBase/graspit_db_grasp.h \
+		     src/DBase/DBPlanner/grasp.h \
+		     src/DBase/DBPlanner/model.h \
+		     src/DBase/DBPlanner/db_manager.h \
+		     src/DBase/DBPlanner/database.h \
+		     src/DBase/DBPlanner/sql_database_manager.h \
+		     src/DBase/graspit_db_planner.h
+
+	FORMS += src/DBase/dbaseDlg.ui \
+		   src/DBase/dbasePlannerDlg.ui
+
+	#you can also define BATCH_PROCESSING in order to supress error output which requires user attention
+	DEFINES += CGDB_ENABLED BATCH_PROCESSING
 }
+
+
+#-------------------------------------- Interfaces to QP solvers ------------------------------------------------------
 
 mosek {
 	DEFINES += MOSEK_QP

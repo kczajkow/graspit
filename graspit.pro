@@ -9,8 +9,15 @@ LANGUAGE	= C++
 CONFIG += graspitdbg
 
 #select collision detection engine
+#possible values: graspit_collision
 COLLISION = graspit_collision
-CONFIG += $$COLLISION
+
+#select blas and lapack libraries, Windows-only
+#possible values: mkl clapack
+LAPACK = mkl
+
+#build and use interface with Columbia Grasp Database
+#CONFIG += cgdb
 
 #link against the Hardware library (included with this distribution) which 
 #provides access to various hardware. Hardware library must be compiled
@@ -20,14 +27,11 @@ CONFIG += $$COLLISION
 #link against Mosek QP solver (must be installed separately)
 #CONFIG += mosek
 
-#enable the CGAL QP solver (must be installed separately)
-#also needs boost
-#CONFIG += cgal_qp
-
 #enable linking against boost (must be installed separately)
 #CONFIG += boost
 
 #------------------system-specific libraries---------------
+CONFIG +=  $$COLLISION $$LAPACK
 
 graspitdbg {
     CONFIG += debug
