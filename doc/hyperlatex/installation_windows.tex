@@ -1,0 +1,140 @@
+\subsection{GraspIt! Installation - Windows}
+
+We assume you are using the Microsoft Visual Studio compiler. Some of
+the paths provided as examples in this installer are taken from MS
+Visual Studio 2003; the change to your particular version of the
+compiler should be straightforward.
+
+\subsubsection{Qt}
+
+Download Qt for C++ from the the \xlink{Qt
+  website}{http://www.qtsoftware.com/downloads}.
+
+GraspIt! is currently tested using Qt 4.4.3. Download the regular
+version, not the \texttt{mingw} installer. Then unzip it to a
+directory of your choice.
+
+Set the following environment variables:
+
+\begin{itemize}
+\item \texttt{QTDIR} - the directory where you unzipped Qt (e.g. \texttt{C:/Qt/4.4.3})
+\item \texttt{QMAKESPEC} - this has to be set depending on your c++
+  compiler and platform. See \texttt{\$QTDIR/mkspecs} for a list of
+  options. If using Microsoft Visual Studio 2003, set this variable to
+  \texttt{win32-msvc2003}.
+\item \texttt{PATH} - add \texttt{\$QTDIR/bin} to your \texttt{PATH}
+\end{itemize}
+
+You might also need to add to some compiler-specific paths to your
+environment variables. If Qt's configure script fails, try to look
+what file it failed to find, then add the respective path to either
+\texttt{PATH}, \texttt{INCLUDE} or \texttt{LIB}. Also be aware of where in the particular environment variable you add a certain path - when searching for a
+file, the system will use the first one that it finds, which might not
+be the one that you intended. Here are, as examples, the paths that
+need to be added when using MS Visual Studio 2003:
+
+\begin{itemize}
+
+\item \texttt{PATH}:
+\begin{itemize}
+\item the path to \texttt{nmake.exe} (e.g. \texttt{C:/Program Files/Microsoft Visual Studio .NET 2003/Vc7/bin} )
+\item the path to the common dlls (e.g. \texttt{C:/Program Files/Microsoft Visual Studio .NET 2003/Common7/IDE} )
+\end{itemize}
+
+\item \texttt{INCLUDE}:
+\begin{itemize}
+\item \texttt{C:/Program Files/Microsoft Visual Studio .NET 2003/Vc7/include}
+\item \texttt{C:/Program Files/Microsoft Visual Studio .NET 2003/Vc7/PlatformSDK/Include}
+\end{itemize}
+
+\item \texttt{LIB}:
+\begin{itemize}
+\item \texttt{C:/Program Files/Microsoft Visual Studio .NET 2003/Vc7/PlatformSDK/Lib}
+\item \texttt{C:/Program Files/Microsoft Visual Studio .NET 2003/Vc7/lib}
+\end{itemize}
+
+\end{itemize}
+
+Follow the instructions provided with the Qt distribution for
+installing (note: installation might take a couple of hours). We
+recommend building both release and debug versions of Qt, so you have
+all your options for linking later
+on. Use \texttt{configure~-debug-and-release} for that.
+
+WARNING: Other programs use Qt binaries, and often include the Qt
+dll's (such as \texttt{QtGui4.dll}) in their distribution. If a path
+to some other version of a Qt dll exists in you \texttt{PATH}
+environment variable \textbf{before} \texttt{\$QTDIR/bin}, the system
+will link GraspIt against the wrong version, often causing failure to
+run. To be sure that you are linking against the right dll's, put
+\texttt{\$QTDIR/bin} at the beginning of your \texttt{PATH}.
+
+\subsubsection{Coin}
+
+Download Coin3d for your C++ compiler from the \xlink{Coin3D
+website}{http://www.coin3d.org}.
+
+We have tested the installation of GraspIt! using Coin 2.4.6. If using
+MS Visual Studio 2003, we recommend downloading Coin 2.4.6 VC7
+binaries, no installer.
+
+Set the following environment variables:
+
+\begin{itemize}
+\item \texttt{COINDIR} - the directory where you unzipped Coin (e.g. \texttt{C:/Coin3D/2.4.6}).
+\item \texttt{PATH} - add the path to \texttt{coin2.dll} (e.g. \texttt{C:/Coin3D/2.4.6/bin}).
+\end{itemize}
+
+\subsubsection{SoQt}
+
+Download SoQt from the \xlink{Coin3D website}{http://www.coin3d.org}.
+
+You will need to build SoQt yourself from source code. The source code
+comes with MS Visual Studio solution files, choose the appropriate one
+depending on your compiler. Again, we recommend building both debug
+and release versions. After the build completes, take a look in
+\texttt{\$COINDIR/bin} to make sure that the appropriate SoQt dlls (\texttt{soqt1.dll} and/or \texttt{soqt1d.dll}) have been built.
+
+\subsubsection{Lapack}
+
+Use your favorite Lapack implementation. For example, you can obtain a
+trial version of Lapack included with the \xlink*{Intel Math Kernel
+  Library}{http://software.intel.com/en-us/intel-mkl/} (MKL).
+
+\subsubsection{GraspIt!}
+
+Download and unzip the GraspIt! code itself. Set the following
+environment variable:
+
+\begin{itemize}
+\item \texttt{GRASPIT} - the directory where you unzipped GraspIt! (e.g. \texttt{C:/Documents and Settings/your\_username/My Documents/Graspit}).
+\end{itemize}
+
+Build QHull. Open and build the MS Visual Studio solution
+\texttt{\$GRASPIT/qhull/windows/qhull.sln}. Once again, we recommend building
+both debug and release versions. Make sure \texttt{qhull.lib} has been
+installed in the appropriate directory
+(\texttt{\$GRASPIT/qhull/windows/Debug}
+and/or \texttt{\$GRASPIT/qhull/windows/Release}).
+
+Edit \texttt{\$GRASPIT/graspit.pro} to suit your particular
+installation. Then, create the GraspIt! MS Visual Studio project file
+from the Qt project file. Execute the following command from inside
+\texttt{\$GRASPIT} in a command prompt: 
+
+\texttt{qmake -t vcapp -o graspit.vcproj graspit.pro}
+
+This will create your GraspIt! MS Visual Studio project file. Open
+\texttt{graspit.vcproj} in MS Visual Studio. Build GraspIt! and run.
+
+\textbf{IMPORTANT}: 
+based on the choice of Debug vs. Release made in
+the \texttt{graspit.pro} file, make sure the appropriate configuration
+(Debug or Release) is \textbf{also} selected in MS Visual Studio. This
+ensures linking against the correct Qt libraries.
+
+\textbf{WARNING}: it is not enough to switch between Debug and Release builds
+using only the option in in MS Visual Studio. This will link against
+the appropriate Qt libraries but NOT against the appropriate Coin,
+SoQt and QHull libraries! The correct way of choosing a Debug or
+Release build is to also edit the \texttt{graspit.pro} file.

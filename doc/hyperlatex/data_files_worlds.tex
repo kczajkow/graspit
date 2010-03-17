@@ -1,0 +1,76 @@
+\subsection{Worlds}
+
+In GraspIt!, robots and bodies populate a simulation world. This
+document describes how these elements can be added or deleted from a
+world and describes the format of a world (.wld) file, which stores
+the current state of the world.
+
+When GraspIt! begins the world is empty. The user may either load a
+previously saved world by choosing File $\rightarrow$ Open, or populate the new
+world. To import an obstacle (a static body) or an object (a dynamic
+body), File $\rightarrow$ Import Obstacle or File $\rightarrow$ Import Object, and then
+choose the Body file (see the previous section on bodies). Note that
+any Body file (regardless of whether it's meant for a static or
+dynamic body) can be loaded as an obstacle (GraspIt! will just ignore
+the dynamic parameters). However, when a body file is imported as an
+Object, GraspIt! will automatically instantiate it as a dynamic
+body. It will also try to find the dynamic parameters in the body file
+and, if it can not find them, assign default values. Be aware that the
+default values occasionally have unpredictable results.
+
+To import a robot, use File $\rightarrow$ Import Robot, open the correct robot
+folder, and select the robot configuration (.cfg) file.
+
+To delete a body, select it, and then press the <DELETE> key. To
+remove a robot, first select the entire robot (by double-clicking one
+of the links when the selection tool is active) and press the <DELETE>
+key.
+
+Note: newly imported bodies or robots always appear at the world
+origin. You can move existing bodies out of the way before importing a
+new one. If you do not, than the newly imported body will overlap with
+an old one, and you will have to temporarily toggle collisions in
+order to move one of them out of the way.
+
+When the user selects "Save" in the file menu, GraspIt! saves the
+current world state in a text world (.wld) file. In the future this
+will be stored in an XML format. The first line of the file
+(e.g. \texttt{\#GraspIt! version 2.0beta}) identifies this file as a
+GraspIt!  file. Each block of lines following that describes on
+element of the world. The end of a block is marked with a blank
+line. Each block begins a line describing the type of element. This
+must be one of: Obstacle, GraspableBody, Robot, Connection or
+CameraFull.
+\begin{description}
+\item[Obstacle:] the next line identifies the file name associated
+  with the body. The filename is relative to \texttt{\$GRASPIT}. Next
+  line should be a material type, and finally there is a transform
+  that locates the body with respect to the world coordinates. The
+  transform is stored by using a "T" followed by 4 numbers surrounded
+  by parenthesis to represent the body orientation as a quaternion,
+  and 3 numbers surrounded by brackets to represent the body position.
+\item[GraspableBody:] the block is the same except the material line
+  is omitted (the material is found in the body file).
+\item[Robot:] the second line after this keyword identifies the robot
+  configuration file. The third line contains values for DOF in the
+  robot. Note that this might mean a single number per DOF or more
+  information, depending on the DOF type. The last line is the
+  transform described above.
+\item[Connection:] indicates a connection between two robots. The
+  second line of the block contains 3 numbers. The first is robot
+  index of the parent robot, starting at 0. The second number is the
+  kinematic chain number on the parent robot that the other robot is
+  attached to. The third number is the index of the child robot. The
+  next line (can be empty) specifies a body that is optionally used as
+  a mount piece between the two robots. The last line of the block is
+  the constant offset transform between the last link of the parent's
+  kinematic chain and the base link of the child robot.
+\item[CameraFull:] specifies the position, orientation and focal point
+  of the camera. The next line contains 8 numbers: the first 3 are the
+  camera position in World coordinates, the next 4 are the camera
+  orientation specified as a quaternion, and the last one is the focal
+  distance of the camera.
+\end{description}
+
+For an example, take a look at the \texttt{barrettGlassDyn.wld} file
+supplied with this GraspIt! distribution.

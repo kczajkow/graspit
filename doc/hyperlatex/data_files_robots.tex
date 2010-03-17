@@ -1,0 +1,208 @@
+\subsection{Robots}
+\label{sec:robotfile}
+
+A Robot is made up of multiple links, connected into kinematic
+chains. A link is simply a dynamic body, as described above. A Robot
+always has a base link (called "palm" for hands) and one or more
+kinematic chains attached to it. Each chain is in turn made up of a
+succession of links, connected by joints. In order to define a robot,
+two things are needed: the Body files for all the links that are part
+of the Robot, plus an overall Robot configuration file, which has all
+the kinematic information and references the appropriate body files
+for the links. Here we describe the structure of the Robot
+configuration file.
+
+Robot configuration files can seem daunting at first, and they are a
+bit annoying to get used to. However, you can start from one of the
+many robots that are included with this distribution, and use it as a
+starting block for your own robot that you are trying to build. For
+the moment, a Robot configuration file is a simple text file which
+must be parsed in the strict order given below. In the future, we hope
+to move to more flexible XML-like format. In Robot configuration file,
+any line that begins with the \# character is considered a
+comment. Blank lines are ignored.
+
+A Robot configuration file has three sections. The first one has the
+overall information about the Robot (type, number of kinematic chains,
+number of DOF's, etc). The second part contains the information for
+each kinematic chain. The third part contains some optional additional
+information. Most Robot files included with this GraspIt! distribution
+are also commented to show what the purpose of each line is.
+
+In this example, we will walk through the file for the Robonaut
+hand. The first item in the file tells GraspIt! whether this is a
+generic robot or hand or a particular subclass of one of those. A hand
+should use the "Hand" class type. In some cases, if a robot has
+special features or its own inverse kinematics algorithm, it is
+necessary to use a subclass of these generic types, such as "Barrett",
+or "Puma560":
+
+\begin{verbatim}
+#Robot ClassType
+Robonaut
+\end{verbatim}
+
+The next item is the filename for the palm link:
+
+\begin{verbatim}
+#Palm filename (considered a link)
+right_palm.iv
+\end{verbatim}
+
+This is followed by information on the DOF's. First comes the number
+of DOF's. Then, for each DOF, a line with the information for
+initializing that DOF. Note that a DOF can be connected to one or more
+joints in the kinematic chains, this information will be supplied
+later in the Robot configuration file. For more details about DOF's
+and joints in GraspIt!, see the Joint Coupling and Underactuated Hands
+chapter.
+
+For each DOF, the line with initialization information contains the following:
+\begin{itemize}
+\item a letter showing the DOF type. For the Robonaut hand, all DOF's
+  are of the type "rigid", depicted by the letter "r". This is the
+  most common type of DOF in GraspIt!. Unless you are building robots
+  with coupled joints (multiple joints connected to a single DOF), you
+  can always use this type of DOF.
+\item the default velocity for that DOF during an autograsp
+  operation. This is used to pre-define the "closing" motion of a
+  hand. For anthropomorphic hands, these pre-defined directions tell
+  GraspIt! how to move each DOF in order to "autograsp", or how to
+  "close the hand". This generally means moving the DOF's of the MCP,
+  PIP and DIP joints in the "flexing" direction, and no movement for
+  the abduction - adduction DOFs.
+\item the max force the DOF can apply to each joint it is connected
+  to. The unit is N * 1.0e6 * mm for torques and N * 1.0e6 for forces.
+\item the Kp and Kv coefficients for a PD force controller built into
+  the DOF
+\item the visual scale of the dragger that allows the user to control
+  this DOF through the GraspIt! GUI.
+\item a number of optional parameters, depending on the DOF type. For
+  the "rigid" DOF, no more parameters are needed.
+\end{itemize}
+
+\begin{verbatim}
+#number of DOFs
+14
+
+#for each DOF:
+#type default_velocities_for_auto_grasp max_effort_in_N_or_Nm dragger_scale
+r 0.0  5.0e+9 1.0e+10 1.0e+7 20
+r 1.0  5.0e+9 1.0e+10 1.0e+7 20
+r 1.0  5.0e+9 1.0e+10 1.0e+7 20
+r 0.0  5.0e+9 1.0e+10 1.0e+7 20
+r 1.0  5.0e+9 1.0e+10 1.0e+7 20
+r 1.0  5.0e+9 1.0e+10 1.0e+7 20
+r 0.0  5.0e+9 1.0e+10 1.0e+7 20
+r 1.0  5.0e+9 1.0e+10 1.0e+7 20
+r 1.0  5.0e+9 1.0e+10 1.0e+7 20
+r 1.0  5.0e+9 1.0e+10 1.0e+7 20
+r 1.0  5.0e+9 1.0e+10 1.0e+7 20
+r 1.0  5.0e+9 1.0e+10 1.0e+7 20
+r 1.0  5.0e+9 1.0e+10 1.0e+7 20
+r 1.0  5.0e+9 1.0e+10 1.0e+7 20
+\end{verbatim}
+
+The next piece of information contained in the Robot config file is
+the number of kinematic chains (also called "fingers" for hands):
+
+\begin{verbatim}
+#Number of fingers
+5
+\end{verbatim}
+
+We then move on to the next section, which contains information for
+ each of the kinematic chains. We will only show here one of the five
+ chains in the Robonaut hand, all the other chains follow the same
+ convention. The first entries are the number of joints and links in
+ the chain. Note that these are not always equal, as you can have up
+ to 3 joints between two links.
+
+\begin{verbatim}
+#----------------f1 - index --------------------
+#number of joints
+4
+
+#number of links
+4
+\end{verbatim}
+
+Next comes the transform from the origin of the palm (which is also
+the origin of the robot) to the base of this chain, which is where the
+first joint in the chain is places. Any chain starts with a joint.
+
+\begin{verbatim}
+#Transforms from palm origin to base of the finger
+t 87.883873 -27.044726 -16.619068
+R
+0.997205 -0.074709 0.000000
+0.074425 0.993411 -0.087156
+0.006511 0.086912 0.996195
+\end{verbatim}
+
+The next block is dedicated to the joints in the chain: one line for
+each joint, with the Denavit-Hartenberg parameters and some additional
+joint information. For each joint, the following entries are present:
+\begin{itemize}
+\item the four D-H parameters, in the order theta d a alpha. Either
+  theta or d must be linked to a DOF number, as shown below.
+\item the next two values are the joint limits.
+\item the next values are optional (not present in the Robonaut file)
+  and can contain things like joint friction coefficients, spring
+  stiffness etc.
+\end{itemize}
+
+\begin{verbatim}
+#Joint Descriptions (1 joint per line)
+#(joints are ordered from closest to palm outward)
+#(d# indicates DOF that this joint is connected to)
+#(linear equations are of the form: d#*k+c [no spaces!])
+#theta	d	a	    alpha	min	max
+d3     	0	8.0518	90 	    -20 10
+d4+-5.9	0	45.72   0      -10 85
+d5     	0	26.67   0       0 	85
+d5+5.9 	0	0       0  	    0 	85
+\end{verbatim}
+
+Finally, we have the block that puts links and joints together. This
+block consists of a list of connection types and links. The connection
+type tells us how each link is connected to the one before. It can be
+one of the following: "Revolute", "Prismatic", "Universal", "Ball", or
+"Fixed". Depending on which one is used, the chain will take some of
+the joints from the joint list above, and put them together to create
+a connection of that type. For example:
+\begin{itemize}
+\item Revolute: the link is connected to the one before by through a
+  single revolute joint 
+\item Universal: the link is connected to the one before by two
+  revolute joints, usually with perpendicular axes
+\item Ball: the link is connected to the one before by three revolute
+  joints, usually with perpendicular axes
+\end{itemize}
+
+The link entry is simply a Body file that that link can be loaded
+from. This is followed by the \texttt{lastJointAxis} number which
+tells GraspIt! the index of that last joint axis that affects that
+position of that link. The joint axes are numbered from 0. We are
+hoping to get away from this convoluted way of specifying connections
+pretty soon.
+
+\begin{verbatim}
+#Link Descriptions (1 link per line)
+#filename lastJoint
+#(links are ordered from closest to palm outward)
+#(lastJoint is the last joint in the chain which can affect this link)
+Revolute
+yoke2.iv 0
+Revolute
+pph3l.iv 1
+Revolute
+mph4.iv 2
+Revolute
+bph3.iv 3
+\end{verbatim}
+
+The last part of the Robot file contains optional information. This
+ usually includes things such as Eigengrasp information, connection to
+ a Flock of Birds sensor, etc. These are described in more detail in
+ the dedicated chapters of this manual.
