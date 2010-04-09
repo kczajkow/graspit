@@ -33,6 +33,7 @@
 class SoSensor;
 class SoTimerSensor;
 class Flock;
+class Pcbird;
 class CyberGlove;
 class World;
 
@@ -70,21 +71,25 @@ public:
 		position of the camera in GraspIt.
 	*/
 	enum FlockMode{FLOCK_RELATIVE, FLOCK_ABSOLUTE, FLOCK_CAMERA};
+	enum PcbirdMode{PCBIRD_ABSOLUTE, PCBIRD_CAMERA};
 private:
 	//! The world that this dialog is connected to
 	World *mWorld;
 	//! Shows if the flock is currently being used
 	bool mFlockRunning;
+	bool mPcbirdRunning;
 	//! Shows if the glove is currently being used
 	bool mGloveRunning;
 	//! The timer that fires at discrete intervals so we can update the readings
 	SoTimerSensor *mTimerSensor;
 	//! Interface to the raw Flock of Birds
 	Flock *mFlock;
+	Pcbird *mPcbird;
 	//! Interface to raw Cyberglove
 	CyberGlove *mGlove;
 	//! The current running mode of the Flock
 	FlockMode mFlockMode;
+	PcbirdMode mPcbirdMode;
 	//! Keeps track of the camera flock transform, for the CAMERA flock mode of operation
 	FlockTransf mCameraFlockTran;
 	//! The number of birds in the Flock. For now, it's hard-coded in.
@@ -96,6 +101,7 @@ private:
 	void init(World *w);
 	//! Initialized the flock of birds
 	bool initFlock();
+	bool initPcbird();
 	//! Initializes the Cyberglove
 	bool initGlove();
 
@@ -119,10 +125,12 @@ private:
 
 	//! Helper function that reads in a raw bird transform and returns it as a GraspIt transf.
 	transf SensorInputDlg::getBirdTran(int b);
+	transf SensorInputDlg::getBirdTran();
 
 private slots:
 	//! Resets all relative positions that new flock positions are computed relative to
 	void resetFlock();
+	void resetPcbird();
 
 public:
 	SensorInputDlg(World *w, QWidget *parent = 0) : QDialog(parent) {
@@ -134,6 +142,10 @@ public:
 						 SLOT(flockStartButton_clicked()));
 		QObject::connect(resetFlockButton, SIGNAL(clicked()), this, 
 						 SLOT(resetFlock()));
+		QObject::connect(pcbirdStartButton, SIGNAL(clicked()), this, 
+						 SLOT(pcbirdStartButton_clicked()));
+		QObject::connect(resetPcbirdButton, SIGNAL(clicked()), this, 
+						 SLOT(resetPcbird()));
 		init(w);
 	}
 
@@ -144,6 +156,7 @@ public slots:
 	void gloveStartButton_clicked();
 	//! Starts or stops the Flock of Birds use
 	void flockStartButton_clicked();
+	void pcbirdStartButton_clicked();
 };
 
 #endif

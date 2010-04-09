@@ -14,7 +14,7 @@ COLLISION = graspit_collision
 
 #select blas and lapack libraries, Windows-only
 #possible values: mkl clapack
-LAPACK = mkl
+LAPACK = clapack
 
 #build and use interface with Columbia Grasp Database
 #CONFIG += cgdb
@@ -22,7 +22,7 @@ LAPACK = mkl
 #link against the Hardware library (included with this distribution) which 
 #provides access to various hardware. Hardware library must be compiled
 #separately and is Windows-only.
-#CONFIG += hardwarelib
+CONFIG += hardwarelib
 
 #link against Mosek QP solver (must be installed separately)
 #CONFIG += mosek

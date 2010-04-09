@@ -35,6 +35,7 @@
 #include "body.h"
 #include "barrett.h"
 #include "Flock.h"
+#include "Pcbird.h"
 #include "CyberGlove.h"
 #include "gloveInterface.h"
 #include "collisionStructures.h"
@@ -51,7 +52,9 @@ SensorInputDlg::init(World *w)
 	mWorld = w;
 	mGloveRunning = false;
 	mFlockRunning = false;
+	mPcbirdRunning = false;
 	mFlock = NULL;
+	mPcbird = NULL;
 	mGlove = NULL;
 	mTimerSensor = new SoTimerSensor(timerStaticCB, this);
 	//timer interval, in seconds
@@ -60,6 +63,9 @@ SensorInputDlg::init(World *w)
 	flockModeBox->insertItem("Relative");
 	flockModeBox->insertItem("Camera");
 	flockModeBox->insertItem("Absolute");
+	pcbirdModeBox->insertItem("Camera");
+	pcbirdModeBox->insertItem("Absolute");
+	pcbirdModeBox->setCurrentIndex(1);
 	masterFlockBox->setMinimum(1);
 	masterFlockBox->setMaximum(9);
 	masterFlockBox->setValue(1);
@@ -115,6 +121,17 @@ SensorInputDlg::timerInternalCB()
 		}
 		needed = true;
 	}
+	if (mPcbirdRunning) {
+		//read in transforms from all the birds in the system
+		std::vector<transf> birdTransf(mNumBirds+1);
+		//Pcbird is always alone
+		birdTransf[1] = getBirdTran();
+		processFlockCamera(birdTransf);
+		processFlockBodies(birdTransf);
+		//Pcbird will always be used without a glove
+		processFlockRobots(birdTransf);
+		needed = true;
+	}
 	if (!needed) {
 		mTimerSensor->unschedule();
 	}
@@ -127,6 +144,13 @@ bool
 SensorInputDlg::initFlock()
 {
 	mFlock = new Flock(1);
+	return true;
+}
+
+bool
+SensorInputDlg::initPcbird()
+{
+	mPcbird = new Pcbird();
 	return true;
 }
 
@@ -221,6 +245,34 @@ SensorInputDlg::flockStartButton_clicked()
 	}
 }
 
+void 
+SensorInputDlg::pcbirdStartButton_clicked()
+{
+	if (!mPcbirdRunning) {
+		if (!mPcbird) {
+			if (!initPcbird()) {
+				DBGA("Pcbird init failed");
+				return;
+			}
+			//on first execution we also reset the flock which sets the reference
+			//transforms for all the bodies in the world
+			resetPcbird();
+		}
+		mPcbirdRunning = true;
+		if (!mTimerSensor->isScheduled()) {
+			mTimerSensor->schedule();
+		}
+		pcbirdStartButton->setText("Stop");
+		pcbirdModeBox->setEnabled(FALSE);
+		resetPcbirdButton->setEnabled(FALSE);
+	} else {
+		mPcbirdRunning = false;
+		pcbirdStartButton->setText("Start");
+		pcbirdModeBox->setEnabled(TRUE);
+		resetPcbirdButton->setEnabled(TRUE);
+	}
+}
+
 transf 
 SensorInputDlg::getBirdTran(int b)
 {
@@ -234,6 +286,25 @@ SensorInputDlg::getBirdTran(int b)
 	double r[9], t[3];
 	mFlock->getRotationMatrix(r);
 	mFlock->getPosition(t);
+
+	transf birdTran;
+	birdTran.set(mat3(r), vec3(t));
+	return birdTran;
+}
+
+transf 
+SensorInputDlg::getBirdTran()
+{
+	if (!mPcbird->instantRead() ) {
+		DBGA("Error reading Pcbird!");
+		mPcbirdRunning = false;
+		pcbirdStartButton->setText("Start");
+		return transf::IDENTITY;
+	}
+	
+	double r[9], t[3];
+	mPcbird->getRotationMatrix(r);
+	mPcbird->getPosition(t);
 
 	transf birdTran;
 	birdTran.set(mat3(r), vec3(t));
@@ -339,6 +410,51 @@ SensorInputDlg::resetFlock()
 			mWorld->getRobot(i)->getFlockTran()->setObjectBase( objectBaseTran );
 		}
 	} else if (mFlockMode == FLOCK_ABSOLUTE) {
+		//we have nothing to do here; each body will get the bird tran in absolute terms
+	} else {
+		DBGA("Unknown Flock mode requested!");
+		assert(0);
+	}
+}
+
+void
+SensorInputDlg::resetPcbird()
+{
+	assert(mPcbird);
+
+	if (pcbirdModeBox->currentText()=="Camera") {
+		mPcbirdMode = PCBIRD_CAMERA;
+	} else if (pcbirdModeBox->currentText()=="Absolute") {
+		mPcbirdMode = PCBIRD_ABSOLUTE;
+	};
+
+	transf masterFlockTran = getBirdTran();
+
+	//for each body, set the base transform that it will be relative to
+	if (mPcbirdMode == PCBIRD_CAMERA) {
+		//everything gets rearranged relative to the camera
+		transf mount(mat3( vec3(0,1,0), vec3(0,0,-1), vec3(-1,0,0) ), vec3(0,0,0));
+		mCameraFlockTran.setMount(mount.inverse());
+		//the base is set based on current camera position
+		transf cameraBaseTran = graspItGUI->getIVmgr()->getCameraTransf();
+		mCameraFlockTran.setFlockBase(masterFlockTran);
+		mCameraFlockTran.setObjectBase(cameraBaseTran);
+		cameraBaseTran = mount.inverse() * cameraBaseTran;
+		//process the bodies
+		for (int i=0; i<mWorld->getNumBodies(); i++) {
+			if (!mWorld->getBody(i)->usesFlock() || 
+				mWorld->getBody(i)->getOwner() != mWorld->getBody(i) ) continue;
+			//each body will be re-arranged relative to the camera transform
+			mWorld->getBody(i)->getFlockTran()->setFlockBase( masterFlockTran );
+			mWorld->getBody(i)->getFlockTran()->setObjectBase( cameraBaseTran );
+		}
+		//process the robots
+		for (int i=0; i<mWorld->getNumRobots(); i++) {
+			if ( !mWorld->getRobot(i)->usesFlock() ) continue;
+			mWorld->getRobot(i)->getFlockTran()->setFlockBase( masterFlockTran );
+			mWorld->getRobot(i)->getFlockTran()->setObjectBase( cameraBaseTran );
+		}
+	} else if (mFlockMode == PCBIRD_ABSOLUTE) {
 		//we have nothing to do here; each body will get the bird tran in absolute terms
 	} else {
 		DBGA("Unknown Flock mode requested!");
