@@ -446,6 +446,8 @@
           <string>Misc.</string>
         </property>
         <addaction name="dynamicsArch_BuilderAction" />
+		<addaction name="separator"/>
+		<addaction name="actionIRp6_server"/>
       </widget>
       <widget class="QMenu" name="helpMenu" >
         <property name="title" >
@@ -968,6 +970,11 @@
         <string>Database Planner...</string>
       </property>
     </action>
+	<action name="actionIRp6_server">
+	<property name="text">
+		<string>IRp6 Server Start</string>
+	</property>
+	</action>
     <actiongroup name="elementGroup" >
       <action name="translateToolAction" >
         <property name="name" >

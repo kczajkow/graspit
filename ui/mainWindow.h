@@ -47,6 +47,7 @@
 //#include <QMainWindow>
 #include <QString>
 #include <QObject>
+#include <QtNetwork>
 
 class World;
 class QAction;
@@ -61,6 +62,7 @@ private:
     World *world;
     QString fileName;
     int selectedContact;
+	QTcpServer *tcpServer;
 
 	void init();
 	void destroy();
@@ -126,6 +128,8 @@ public slots:
 	void stereoFlip();
 	//-------------
 	void archBuilder();
+	void irp6_server();
+	void newClient();
 	//-------------
 	void updateContactsList();
 	void contactSelected(int newSelection);

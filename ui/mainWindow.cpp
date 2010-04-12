@@ -36,6 +36,7 @@
 #include <QTime>
 #include <QFileDialog>
 #include <QAssistantClient>
+#include <QtNetwork>
 
 #include <list>
 
@@ -145,6 +146,7 @@ MainWindow::MainWindow(QWidget *parent)
 	QObject::connect(mUI->stereoFlip_leftrightAction, SIGNAL(triggered()), this, SLOT(stereoFlip()));
 	// -- misc menu
 	QObject::connect(mUI->dynamicsArch_BuilderAction, SIGNAL(triggered()), this, SLOT(archBuilder()));
+	QObject::connect(mUI->actionIRp6_server, SIGNAL(triggered()), this, SLOT(irp6_server()));
 	// -- contacts
 	QObject::connect(mUI->contactsListBox, SIGNAL(highlighted(int)), this, SLOT(contactSelected(int)));
 	// -- dynamics
@@ -927,6 +929,96 @@ void MainWindow::archBuilder()
 	}
 	bool addSupports = dlg.supportsCheckBox->isChecked();
 	create_arch(world, innerRadius, outerRadius, thickness, nBlocks, addSupports);
+}
+
+void MainWindow::irp6_server()
+{
+	if (mUI->actionIRp6_server->text() == "IRp6 Server Start") {
+		DBGA("IRp6 Server is on...");
+
+		//int s, len, fromlen;
+		//char Buffer[128];
+		//struct sockaddr_in local, from;
+		//SOCKET listen_socket;
+		//WSADATA wsa;
+		//WSAStartup(MAKEWORD(1,1),&wsa);
+
+		//local.sin_family = AF_INET;
+		//local.sin_port = htons(5001);
+		//local.sin_addr.s_addr = INADDR_ANY;
+
+		//listen_socket = socket(AF_INET, SOCK_STREAM, 0);
+		//bind(listen_socket, (struct sockaddr*)&local, sizeof(local));
+		//listen(listen_socket, 5);
+
+		//while (1) {
+		//	accept(listen_socket, (struct sockaddr*)&from, &fromlen);
+
+		//	Buffer[0] = 'A';
+		//	send(listen_socket, Buffer, sizeof(Buffer), 0);
+		//	recv(listen_socket, Buffer, sizeof(Buffer), 0);
+
+		//	DBGA("Info from client:");
+		//	DBGA(Buffer);
+		//}
+
+        tcpServer = new QTcpServer();
+		if (!tcpServer->listen(QHostAddress::Any, 5001)) {
+			QMessageBox::critical(mWindow, tr("Fortune Server"),
+                                  tr("Unable to start the server: %1.").arg(tcpServer->errorString()));
+            tcpServer->close();
+            return;
+        }
+
+        connect(tcpServer, SIGNAL(newConnection()), this, SLOT(newClient()));
+
+		mUI->actionIRp6_server->setText("IRp6 Server Stop");
+	}
+	else {
+		DBGA("IRp6 Server is off...");
+
+		//WSACleanup();
+
+		tcpServer->close();
+		delete tcpServer;
+
+		mUI->actionIRp6_server->setText("IRp6 Server Start");
+	}
+}
+
+void MainWindow::newClient()
+{
+	DBGA("newClient()");
+
+	QByteArray block;
+	double irp6[7];
+	world->getRobot(0)->getDOFVals(irp6);
+    QDataStream out(&block, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_4_0);
+	out.setByteOrder(QDataStream::LittleEndian); //for QNX
+	//out << (float)0.1;
+	//out << (float)0.2;
+	//out << (float)0.3456789;
+	//out << (float)0.4;
+	//out << (float)0.5;
+	//out << (float)0.6;
+	//out << (float)0.7;
+	out << irp6[0];
+	out << irp6[1];
+	out << irp6[2];
+	out << irp6[3];
+	out << irp6[4];
+	out << irp6[5];
+	out << irp6[6];
+    //out.device()->seek(0);
+    //out << (quint16)(block.size() - sizeof(qreal)*7);
+
+    QTcpSocket *clientConnection = tcpServer->nextPendingConnection();
+    connect(clientConnection, SIGNAL(disconnected()),
+            clientConnection, SLOT(deleteLater()));
+
+    clientConnection->write(block);
+    clientConnection->disconnectFromHost();
 }
 
 /*!
