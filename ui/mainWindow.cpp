@@ -993,16 +993,19 @@ void MainWindow::newClient()
 	QByteArray block;
 	double irp6[7];
 	world->getRobot(0)->getDOFVals(irp6);
+	irp6[6] = -1.0; //TO DO: chwytak
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_4_0);
 	out.setByteOrder(QDataStream::LittleEndian); //for QNX
-	//out << (float)0.1;
-	//out << (float)0.2;
-	//out << (float)0.3456789;
-	//out << (float)0.4;
-	//out << (float)0.5;
-	//out << (float)0.6;
-	//out << (float)0.7;
+
+	DBGA(irp6[0]);
+	DBGA(irp6[1]);
+	DBGA(irp6[2]);
+	DBGA(irp6[3]);
+	DBGA(irp6[4]);
+	DBGA(irp6[5]);
+	DBGA(irp6[6]);
+
 	out << irp6[0];
 	out << irp6[1];
 	out << irp6[2];
@@ -1010,6 +1013,7 @@ void MainWindow::newClient()
 	out << irp6[4];
 	out << irp6[5];
 	out << irp6[6];
+
     //out.device()->seek(0);
     //out << (quint16)(block.size() - sizeof(qreal)*7);
 
