@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<world>
+	<obstacle>
+		<filename>models/obstacles/floor.xml</filename>
+		<transform>
+			<fullTransform>(+1 +0 +0 +0)[+0 +0 -0.5]</fullTransform>
+		</transform>
+	</obstacle>
+	<obstacle>
+		<filename>models/obstacles/dinner_table.xml</filename>
+		<transform>
+			<fullTransform>(+1 +0 +0 +0)[+1036.69 +4005.65 -0.489897]</fullTransform>
+		</transform>
+	</obstacle>
+	<robot>
+		<filename>models/robots/My2FGripper/2FGripper.xml</filename>
+		<dofValues>+0 </dofValues>
+		<transform>
+			<fullTransform>(-0.239425 -0.681852 -0.2398 +0.648266)[+2247 +4650.54 +1237.78]</fullTransform>
+		</transform>
+	</robot>
+	<robot>
+		<filename>models/robots/MyIrp6/Irp6.xml</filename>
+		<dofValues>-1.42807 +0.0082097 -0.00819506 +0.0100943 +0.0464184 -0.549133 </dofValues>
+		<transform>
+			<fullTransform>(+1 +0 +0 +0)[+2116.8 +5502.75 +429.538]</fullTransform>
+		</transform>
+	</robot>
+	<connection>
+		<parentRobot>+1</parentRobot>
+		<parentChain>+0</parentChain>
+		<childRobot>+0</childRobot>
+		<transform>
+			<fullTransform>(+0.707107 +0 -0.707107 +0)[+0 +0 +70]</fullTransform>
+		</transform>
+	</connection>
+	<camera>
+		<position>+3732.12 +4585.43 +1793.57</position>
+		<orientation>-0.391249 -0.348554 -0.55606 -0.64516</orientation>
+		<focalDistance>+6159.87</focalDistance>
+	</camera>
+</world>

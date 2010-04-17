@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<world>
+	<robot>
+		<filename>models/robots/MyIrp6/Irp6.xml</filename>
+		<dofValues>-0.000638449 0.0883464 -0.0817486 -0.00659779 1.75862e-09 0.419051 </dofValues>
+		<transform>
+			<fullTransform>(+1 +0 +0 +0)[-372.666 +0.000714942 +4.27854]</fullTransform>
+		</transform>
+	</robot>
+	<robot>
+		<filename>models/robots/BarrettMyTest2soft/BarrettMyTest2.xml</filename>
+		<dofValues>+0 +0 +0 +0 +0 +0 +0 +0 +0 </dofValues>
+		<transform>
+			<fullTransform>(+4.21846e-15 -0.838891 -0.544299 +6.31692e-15)[+527.465 -0.573972 +878.084]</fullTransform>
+		</transform>
+	</robot>
+	<connection>
+		<parentRobot>+0</parentRobot>
+		<parentChain>+0</parentChain>
+		<childRobot>+1</childRobot>
+		<transform>
+			<fullTransform>(+1 +0 +0 +0)[+0 +0 +0]</fullTransform>
+		</transform>
+	</connection>
+	<camera>
+		<position>+739.188 +1008.07 +935.258</position>
+		<orientation>+0.112458 +0.66856 +0.72412 +0.126611</orientation>
+		<focalDistance>+1438.07</focalDistance>
+	</camera>
+</world>
