@@ -35,12 +35,12 @@ int Pcbird::instantRead()
 	//pcbird_get_streaming_position(fd, &p);
 	pcbird_get_single_position(fd, &p);
 
-	angles[0] = -1.0 * p.a;
-	angles[1] = -1.0 * p.g;
-	angles[2] = -1.0 * p.b;
-	position[0] = -1.0 * p.y*1000 + 500;
-	position[1] = -1.0 * p.x*1000 + 500;
-	position[2] = -1.0 * p.z*1000;
+	angles[0] = -1.0 * p.a + 90;
+	angles[1] = -1.0 * p.g + 0;
+	angles[2] = -1.0 * p.b + 0;
+	position[0] = 1.0 * p.x*1000 - 496;
+	position[1] = -1.0 * p.y*1000 - 936;
+	position[2] = -1.0 * p.z*1000 + 261;
 	float Zang = angles[0] * M_PI / 180;
 	float Yang = angles[1] * M_PI / 180;
 	float Xang = angles[2] * M_PI / 180;

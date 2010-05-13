@@ -888,11 +888,11 @@ Robot::invKinematics(const transf& targetPos, double* dofVals, int chainNum)
 		//check the convergence
 		if(factor < epsilon){
 			for(int k = 0; k < numDOF; ++k){
-				//std::cout << "from: " << dofVals[k] << " to: " << currentJointVals[k];
+				//std::cout << "from: " << dofVals[k] << " to: " << currentDOFVals[k];
 				//check if the joint value jumps to another one which is too far away of the previous one
 				if(fabs(dofVals[k] - currentDOFVals[k]) > upperBound){
 					std::cout << "exceeds the upper bound at DOF: " << k << " , jumping to another pose\n";
-					return FAILURE;
+					//return FAILURE;
 				}
 				dofVals[k] = currentDOFVals[k];
 			}

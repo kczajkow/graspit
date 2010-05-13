@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<world>
+	<robot>
+		<filename>models/robots/My2FGripper/2FGripper.xml</filename>
+		<dofValues>0 </dofValues>
+		<transform>
+			<fullTransform>(+1.57009e-16 -1 -1.11022e-16 +0)[+862.491 -1.93855e-14 +802.191]</fullTransform>
+		</transform>
+	</robot>
+	<robot>
+		<filename>models/robots/MyIrp6/Irp6.xml</filename>
+		<dofValues>+0 +0 +0 +0 +0 +0 </dofValues>
+		<transform>
+			<fullTransform>(+1 +0 +0 +0)[+2.49076 +0 -7.80903]</fullTransform>
+		</transform>
+	</robot>
+	<connection>
+		<parentRobot>+1</parentRobot>
+		<parentChain>+0</parentChain>
+		<childRobot>+0</childRobot>
+		<transform>
+			<fullTransform>(+0.707107 +0 +0 +0.707107)[+0 +0 +70]</fullTransform>
+		</transform>
+	</connection>
+	<camera>
+		<position>+2236.36 -1368.89 +1092.27</position>
+		<orientation>+0.539734 +0.294736 +0.376539 +0.692847</orientation>
+		<focalDistance>+2297.91</focalDistance>
+	</camera>
+</world>

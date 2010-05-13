@@ -2,7 +2,7 @@
 <robot type="Hand">
     <palm>wrist.xml</palm>
     <dof type="r">
-        <defaultVelocity>20.0</defaultVelocity>
+        <defaultVelocity>50.0</defaultVelocity>
         <maxEffort>1.0e+10</maxEffort>
         <Kp>1.0e+10</Kp>
         <Kd>1.0e+7</Kd>
@@ -10,7 +10,8 @@
     </dof>
     <chain>
         <transform>
-            <translation>0 0 45.5</translation>
+			<rotation>-90 y</rotation>
+			<translation>0 0 45.5</translation>
         </transform>
         <joint type="Prismatic">
             <theta>0</theta>
@@ -24,8 +25,9 @@
     </chain>
     <chain>
         <transform>
-            <translation>0 0 -45.5</translation>
-			<rotation>180 x</rotation>
+			<rotation>-90 y</rotation>
+			<rotation>180 x</rotation>	
+			<translation>0 0 45.5</translation>			
         </transform>
         <joint type="Prismatic">
             <theta>0</theta>
@@ -37,8 +39,4 @@
         </joint>
         <link dynamicJointType="Prismatic">finger.xml</link>		
     </chain>
-    <approachDirection>
-        <referenceLocation>0.0 0.0 0.0</referenceLocation>
-        <direction>1.0 0.0 0.0</direction>
-    </approachDirection>
 </robot>

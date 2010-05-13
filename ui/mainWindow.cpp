@@ -673,9 +673,9 @@ void MainWindow::graspQualityMeasures()
 */
 void MainWindow::graspPlanner()
 {
-	if (!world->getCurrentHand()->getName().contains("Barrett")) {
+	if (!(world->getCurrentHand()->getName().contains("Barrett") || world->getCurrentHand()->getName().contains("FGripper"))) {
 		QMessageBox::warning(NULL,"GraspIt!",
-							"The planner currently only works with the Barrett hand.",
+							"The planner currently only works with the Barrett hand, TFG and the Bird hand.",
 							QMessageBox::Ok, Qt::NoButton,Qt::NoButton);
 		return;
 	}
@@ -992,8 +992,8 @@ void MainWindow::newClient()
 
 	QByteArray block;
 	double irp6[7];
-	world->getRobot(0)->getDOFVals(irp6);
-	irp6[6] = -1.0; //TO DO: chwytak
+	world->getCurrentHand()->getParent()->getDOFVals(irp6);
+	world->getCurrentHand()->getDOFVals(&irp6[6]);
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_4_0);
 	out.setByteOrder(QDataStream::LittleEndian); //for QNX

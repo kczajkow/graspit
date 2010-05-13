@@ -13,21 +13,21 @@
 		</transform>
 	</obstacle>
 	<graspableBody>
-		<filename>models/objects/p51_small_jet_2_pcbird.xml</filename>
+		<filename>models/objects/phone.xml</filename>
 		<transform>
-			<fullTransform>(+1 +0 +0 +0)[+42.5179 -875.068 +668.223]</fullTransform>
+			<fullTransform>(+0.897629 +0.12438 +0.2744 +0.321708)[+42.5173 -875.068 +668.223]</fullTransform>
 		</transform>
 	</graspableBody>
 	<robot>
 		<filename>models/robots/My2FGripper/2FGripper.xml</filename>
-		<dofValues>+0 </dofValues>
+		<dofValues>+16.95 </dofValues>
 		<transform>
-			<fullTransform>(+0.0262533 +0.000735858 +0.999558 -0.0139647)[+126.835 -838.716 +851.233]</fullTransform>
+			<fullTransform>(-0.249522 -0.341365 +0.904426 +0.0567709)[+38.1006 -831.481 +729.549]</fullTransform>
 		</transform>
 	</robot>
 	<robot>
 		<filename>models/robots/MyIrp6/Irp6.xml</filename>
-		<dofValues>-1.43005 -0.036397 -0.0152347 +0.0165451 +0.0480409 +1.71386 </dofValues>
+		<dofValues>-1.42677 -0.0516426 +0.202536 -0.147007 -0.517538 +0.994036 </dofValues>
 		<transform>
 			<fullTransform>(+1 +0 +0 +0)[+0 +0 +0]</fullTransform>
 		</transform>
@@ -48,8 +48,8 @@
 		</transform>
 	</connection>
 	<camera>
-		<position>+932.586 -1635.98 +1089.6</position>
-		<orientation>-0.565163 -0.20248 -0.327545 -0.729594</orientation>
-		<focalDistance>+1032.52</focalDistance>
+		<position>+128.605 -1794.02 +751.565</position>
+		<orientation>-0.687213 -0.00826523 -5.40363e-05 -0.726409</orientation>
+		<focalDistance>+934.259</focalDistance>
 	</camera>
 </world>

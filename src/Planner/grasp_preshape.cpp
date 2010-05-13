@@ -37,6 +37,10 @@
 #include <math.h>
 #include <iostream>
 
+#include "graspitGUI.h"
+#include "ivmgr.h"
+#include "world.h"
+#include "robot.h"
 #include "grasp_preshape.h"
 
 /*!
@@ -134,50 +138,49 @@ preshape::distanceTo(preshape p) const{
 */
 void
 preshape::updateAngles(){
-    if (pType != PR_None){
-	switch (pType) {
-	    case PR_circle:
-		a  = PR_circle_Angle;
-		f1 = PR_circle_F1;
-		f2 = PR_circle_F2;
-		f3 = PR_circle_F3;
-		break;
-	    case PR_two_opp_one:
-		a =  PR_two_opp_one_Angle;
-		f1 = PR_two_opp_one_F1;
-		f2 = PR_two_opp_one_F2;
-		f3 = PR_two_opp_one_F3;
-		break;
-	    case PR_three_opp_palm:
-		a =  PR_three_opp_palm_Angle;
-		f1 = PR_three_opp_palm_F1;
-		f2 = PR_three_opp_palm_F2;
-		f3 = PR_three_opp_palm_F3;
-		break;
-	    case PR_t_shape:
-		a =  PR_t_shape_Angle;
-		f1 = PR_t_shape_F1;
-		f2 = PR_t_shape_F2;
-		f3 = PR_t_shape_F3;
-		break;
-	    default:
-		std::cout << "Preshape not defined or implemented." << std::endl;
-		break;
+	if (pType != PR_None){
+		switch (pType) {
+		case PR_circle:
+			a  = PR_circle_Angle;
+			f1 = PR_circle_F1;
+			f2 = PR_circle_F2;
+			f3 = PR_circle_F3;
+			if (graspItGUI->getIVmgr()->getWorld()->getCurrentHand()->getName() == "2FGripper") {
+				a = PR_tfg;
+			}		
+			if (graspItGUI->getIVmgr()->getWorld()->getCurrentHand()->getName() == "BarrettMyTest2") {
+				a = PR_bird_circle_Angle;
+				f1 = PR_bird_circle_Angle;
+			}
+			break;
+		case PR_two_opp_one:
+			a =  PR_two_opp_one_Angle;
+			f1 = PR_two_opp_one_F1;
+			f2 = PR_two_opp_one_F2;
+			f3 = PR_two_opp_one_F3;
+			if (graspItGUI->getIVmgr()->getWorld()->getCurrentHand()->getName() == "2FGripper") {
+				a = PR_tfg;
+			}		
+			if (graspItGUI->getIVmgr()->getWorld()->getCurrentHand()->getName() == "BarrettMyTest2") {
+				a = PR_bird_two_opp_one_Angle;
+				f1 = PR_bird_two_opp_one_Angle;
+			}
+			break;
+		case PR_three_opp_palm:
+			a =  PR_three_opp_palm_Angle;
+			f1 = PR_three_opp_palm_F1;
+			f2 = PR_three_opp_palm_F2;
+			f3 = PR_three_opp_palm_F3;
+			break;
+		case PR_t_shape:
+			a =  PR_t_shape_Angle;
+			f1 = PR_t_shape_F1;
+			f2 = PR_t_shape_F2;
+			f3 = PR_t_shape_F3;
+			break;
+		default:
+			std::cout << "Preshape not defined or implemented." << std::endl;
+			break;
+		}
 	}
-    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
