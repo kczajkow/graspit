@@ -70,3 +70,4 @@ xmlconverter/ -  A stand-alone utility for converting old GraspIt files
 Troubleshooting
 ---------------
 Please check the user manual for troubleshooting and contact information!
+
