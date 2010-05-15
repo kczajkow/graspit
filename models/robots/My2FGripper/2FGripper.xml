@@ -1,10 +1,10 @@
 <?xml version="1.0" ?>
 <robot type="Hand">
     <palm>wrist.xml</palm>
-    <dof type="r">
-        <defaultVelocity>50.0</defaultVelocity>
-        <maxEffort>1.0e+10</maxEffort>
-        <Kp>1.0e+10</Kp>
+    <dof type="b">
+        <defaultVelocity>5.0</defaultVelocity>
+        <maxEffort>5.0e+10</maxEffort>
+        <Kp>1.0e+11</Kp>
         <Kd>1.0e+7</Kd>
         <draggerScale>80</draggerScale>
     </dof>

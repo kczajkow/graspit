@@ -1,0 +1,8 @@
+#Inventor V2.1 ascii
+
+Separator {
+	Translation {
+		translation 0 -30 -40
+	}
+	Cylinder { radius 30 height 200 }
+}
