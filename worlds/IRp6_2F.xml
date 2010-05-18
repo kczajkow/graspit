@@ -15,19 +15,19 @@
 	<graspableBody>
 		<filename>models/objects/RubikCube.xml</filename>
 		<transform>
-			<fullTransform>(-0.380634 +0.334541 +0.772969 -0.381732)[+70.1234 -875.069 +805.953]</fullTransform>
+			<fullTransform>(+0.733587 +0.149903 -0.636006 +0.186751)[-303.545 -845.322 +522.967]</fullTransform>
 		</transform>
 	</graspableBody>
 	<robot>
 		<filename>models/robots/My2FGripper/2FGripper.xml</filename>
-		<dofValues>+0 +0 +0 </dofValues>
+		<dofValues>+16.75 +1 +12.45 +0 </dofValues>
 		<transform>
-			<fullTransform>(+0.0266378 +0.0290491 +0.999136 -0.0132115)[+101.913 -835.307 +929.574]</fullTransform>
+			<fullTransform>(-0.0083522 +0.525347 +0.850788 -0.0100732)[-270.638 -825.46 +552.613]</fullTransform>
 		</transform>
 	</robot>
 	<robot>
 		<filename>models/robots/MyIrp6/Irp6.xml</filename>
-		<dofValues>-1.459 -0.0315674 -0.13807 +0.135964 +0.0490362 +1.74155 </dofValues>
+		<dofValues>-1.88362 +0.126266 +0.267057 -0.408916 -0.0210171 +2.36416 </dofValues>
 		<transform>
 			<fullTransform>(+1 +0 +0 +0)[+0 +0 +0]</fullTransform>
 		</transform>
@@ -48,8 +48,8 @@
 		</transform>
 	</connection>
 	<camera>
-		<position>+333.663 -1299.86 +642.576</position>
-		<orientation>-0.822622 -0.111317 -0.052904 -0.55507</orientation>
-		<focalDistance>+419.791</focalDistance>
+		<position>+179.593 -585.964 +517.239</position>
+		<orientation>-0.361635 -0.683885 -0.54623 -0.321177</orientation>
+		<focalDistance>+512.735</focalDistance>
 	</camera>
 </world>

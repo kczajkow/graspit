@@ -992,8 +992,14 @@ void MainWindow::newClient()
 
 	QByteArray block;
 	double irp6[7];
+	double pre_irp6[7];
+
 	world->getCurrentHand()->getParent()->getDOFVals(irp6);
 	world->getCurrentHand()->getDOFVals(&irp6[6]);
+	//world->getCurrentHand()->moveTo();
+	world->getCurrentHand()->getParent()->getDOFVals(pre_irp6);
+	world->getCurrentHand()->getDOFVals(&pre_irp6[6]);
+
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_4_0);
 	out.setByteOrder(QDataStream::LittleEndian); //for QNX
