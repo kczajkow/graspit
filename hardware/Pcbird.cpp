@@ -38,8 +38,8 @@ int Pcbird::instantRead()
 	angles[0] = -1.0 * p.a + 90;
 	angles[1] = -1.0 * p.g + 0;
 	angles[2] = -1.0 * p.b + 0;
-	position[0] = 1.0 * p.x*1000 - 385;
-	position[1] = -1.0 * p.y*1000 - 945;
+	position[0] = 1.0 * p.x*1000 - 395;
+	position[1] = -1.0 * p.y*1000 - 940;
 	position[2] = -1.0 * p.z*1000 + 360;
 	float Zang = angles[0] * M_PI / 180;
 	float Yang = angles[1] * M_PI / 180;

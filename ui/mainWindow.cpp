@@ -996,7 +996,15 @@ void MainWindow::newClient()
 
 	world->getCurrentHand()->getParent()->getDOFVals(irp6);
 	world->getCurrentHand()->getDOFVals(&irp6[6]);
-	//world->getCurrentHand()->moveTo();
+
+	//go to the starting position
+	transf tran(world->getCurrentHand()->getTran().rotation(),
+			  world->getCurrentHand()->getTran().translation());
+	transf dir(world->getCurrentHand()->getApproachTran().rotation(),
+				world->getCurrentHand()->getApproachTran().translation() + vec3(0.0, 0.0, -100.0));
+	world->getCurrentHand()->autoGrasp(true, -1.0);
+	world->getCurrentHand()->moveTo(dir * tran, 50*Contact::THRESHOLD, M_PI/36.0);
+
 	world->getCurrentHand()->getParent()->getDOFVals(pre_irp6);
 	world->getCurrentHand()->getDOFVals(&pre_irp6[6]);
 
@@ -1011,6 +1019,13 @@ void MainWindow::newClient()
 	DBGA(irp6[4]);
 	DBGA(irp6[5]);
 	DBGA(irp6[6]);
+	DBGA(pre_irp6[0]);
+	DBGA(pre_irp6[1]);
+	DBGA(pre_irp6[2]);
+	DBGA(pre_irp6[3]);
+	DBGA(pre_irp6[4]);
+	DBGA(pre_irp6[5]);
+	DBGA(pre_irp6[6]);
 
 	out << irp6[0];
 	out << irp6[1];
@@ -1019,6 +1034,13 @@ void MainWindow::newClient()
 	out << irp6[4];
 	out << irp6[5];
 	out << irp6[6];
+	out << pre_irp6[0];
+	out << pre_irp6[1];
+	out << pre_irp6[2];
+	out << pre_irp6[3];
+	out << pre_irp6[4];
+	out << pre_irp6[5];
+	out << pre_irp6[6];
 
     //out.device()->seek(0);
     //out << (quint16)(block.size() - sizeof(qreal)*7);
