@@ -1,7 +1,0 @@
-<?xml version="1.0" ?>
-<root>
-    <material>rubber</material>
-    <youngs>100</youngs>
-    <mass>1000</mass>
-    <geometryFile type="Inventor">palm.iv</geometryFile>
-</root>
