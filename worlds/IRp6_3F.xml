@@ -8,7 +8,7 @@
 		</transform>
 	</robot>
 	<robot>
-		<filename>models/robots/BarrettMyTest2soft/BarrettMyTest2.xml</filename>
+		<filename>models/robots/MyBirdHand/BirdHand.xml</filename>
 		<dofValues>+0 +0 +0 +0 +0 +0 +0 +0 +0 </dofValues>
 		<transform>
 			<fullTransform>(+4.21846e-15 -0.838891 -0.544299 +6.31692e-15)[+527.465 -0.573972 +878.084]</fullTransform>
