@@ -1,17 +1,23 @@
 <?xml version="1.0" ?>
 <world>
+	<graspableBody>
+		<filename>models/objects/cylinder.xml</filename>
+		<transform>
+			<fullTransform>(+0.794237 +0.587926 -0.11711 -0.0990778)[+501.049 -43.1766 +739.47]</fullTransform>
+		</transform>
+	</graspableBody>
 	<robot>
 		<filename>models/robots/MyIrp6/Irp6.xml</filename>
-		<dofValues>-0.000638449 0.0883464 -0.0817486 -0.00659779 1.75862e-09 0.419051 </dofValues>
+		<dofValues>+0.0243961 +0.0411295 -0.0112184 -0.00158179 -0.292701 -1.23211 </dofValues>
 		<transform>
 			<fullTransform>(+1 +0 +0 +0)[-372.666 +0.000714942 +4.27854]</fullTransform>
 		</transform>
 	</robot>
 	<robot>
 		<filename>models/robots/MyBirdHand/BirdHand.xml</filename>
-		<dofValues>+0 +0 +0 +0 +0 +0 +0 +0 +0 </dofValues>
+		<dofValues>+1.0472 +0.35 +0.955 -1.0472 +0.325 +1.0472 +0 +1.0472 </dofValues>
 		<transform>
-			<fullTransform>(+4.21846e-15 -0.838891 -0.544299 +6.31692e-15)[+527.465 -0.573972 +878.084]</fullTransform>
+			<fullTransform>(-0.0125437 -0.152771 -0.977345 +0.145948)[+503.498 -6.03946 +862.551]</fullTransform>
 		</transform>
 	</robot>
 	<connection>
@@ -23,8 +29,8 @@
 		</transform>
 	</connection>
 	<camera>
-		<position>+739.188 +1008.07 +935.258</position>
-		<orientation>+0.112458 +0.66856 +0.72412 +0.126611</orientation>
-		<focalDistance>+1438.07</focalDistance>
+		<position>+1020.59 +455.278 +865.731</position>
+		<orientation>+0.340106 +0.569767 +0.646879 +0.375821</orientation>
+		<focalDistance>+1177.4</focalDistance>
 	</camera>
 </world>

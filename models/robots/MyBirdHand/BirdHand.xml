@@ -16,7 +16,7 @@
         <draggerScale>15</draggerScale>
     </dof>
     <dof type="r">
-        <defaultVelocity>1.0</defaultVelocity>
+        <defaultVelocity>0.5</defaultVelocity>
         <maxEffort>5.0e+7</maxEffort>
         <Kp>1.0e+10</Kp>
         <Kd>1.0e+7</Kd>
@@ -37,7 +37,7 @@
         <draggerScale>15</draggerScale>
     </dof>
     <dof type="r">
-        <defaultVelocity>1.0</defaultVelocity>
+        <defaultVelocity>0.5</defaultVelocity>
         <maxEffort>5.0e+7</maxEffort>
         <Kp>1.0e+10</Kp>
         <Kd>1.0e+7</Kd>
@@ -51,7 +51,7 @@
         <draggerScale>15</draggerScale>
     </dof>
     <dof type="r">
-        <defaultVelocity>1.0</defaultVelocity>
+        <defaultVelocity>0.5</defaultVelocity>
         <maxEffort>5.0e+7</maxEffort>
         <Kp>1.0e+10</Kp>
         <Kd>1.0e+7</Kd>

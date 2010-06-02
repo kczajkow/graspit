@@ -148,9 +148,9 @@ preshape::updateAngles(){
 			if (graspItGUI->getIVmgr()->getWorld()->getCurrentHand()->getName() == "2FGripper") {
 				a = PR_tfg;
 			}		
-			if (graspItGUI->getIVmgr()->getWorld()->getCurrentHand()->getName() == "BarrettMyTest2") {
+			if (graspItGUI->getIVmgr()->getWorld()->getCurrentHand()->getName() == "BirdHand") {
 				a = PR_bird_circle_Angle;
-				f1 = PR_bird_circle_Angle;
+				f3 = -PR_bird_circle_Angle;
 			}
 			break;
 		case PR_two_opp_one:
@@ -161,9 +161,9 @@ preshape::updateAngles(){
 			if (graspItGUI->getIVmgr()->getWorld()->getCurrentHand()->getName() == "2FGripper") {
 				a = PR_tfg;
 			}		
-			if (graspItGUI->getIVmgr()->getWorld()->getCurrentHand()->getName() == "BarrettMyTest2") {
+			if (graspItGUI->getIVmgr()->getWorld()->getCurrentHand()->getName() == "BirdHand") {
 				a = PR_bird_two_opp_one_Angle;
-				f1 = PR_bird_two_opp_one_Angle;
+				f3 = -PR_bird_two_opp_one_Angle;
 			}
 			break;
 		case PR_three_opp_palm:

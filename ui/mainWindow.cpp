@@ -673,7 +673,9 @@ void MainWindow::graspQualityMeasures()
 */
 void MainWindow::graspPlanner()
 {
-	if (!(world->getCurrentHand()->getName().contains("Barrett") || world->getCurrentHand()->getName().contains("FGripper"))) {
+	if (!(world->getCurrentHand()->getName().contains("Barrett") || 
+		world->getCurrentHand()->getName().contains("2FGripper") ||
+		world->getCurrentHand()->getName().contains("BirdHand"))) {
 		QMessageBox::warning(NULL,"GraspIt!",
 							"The planner currently only works with the Barrett hand, TFG and the Bird hand.",
 							QMessageBox::Ok, Qt::NoButton,Qt::NoButton);
@@ -991,11 +993,16 @@ void MainWindow::newClient()
 	DBGA("newClient()");
 
 	QByteArray block;
-	double irp6[7];
-	double pre_irp6[7];
+	double irp6[6];
+	double pre_irp6[6];
+	double tfg;
+	double birdhand[8];
 
 	world->getCurrentHand()->getParent()->getDOFVals(irp6);
-	world->getCurrentHand()->getDOFVals(&irp6[6]);
+	if (world->getCurrentHand()->getName().contains("BirdHand"))
+		world->getCurrentHand()->getDOFVals(birdhand);
+	if (world->getCurrentHand()->getName().contains("2FGripper"))
+		world->getCurrentHand()->getDOFVals(&tfg);
 
 	//go to the starting position
 	transf tran(world->getCurrentHand()->getTran().rotation(),
@@ -1006,26 +1013,41 @@ void MainWindow::newClient()
 	world->getCurrentHand()->moveTo(dir * tran, 50*Contact::THRESHOLD, M_PI/36.0);
 
 	world->getCurrentHand()->getParent()->getDOFVals(pre_irp6);
-	world->getCurrentHand()->getDOFVals(&pre_irp6[6]);
 
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_4_0);
-	out.setByteOrder(QDataStream::LittleEndian); //for QNX
+	out.setByteOrder(QDataStream::LittleEndian);
 
+	//debug
+	DBGA("irp6 values:");
 	DBGA(irp6[0]);
 	DBGA(irp6[1]);
 	DBGA(irp6[2]);
 	DBGA(irp6[3]);
 	DBGA(irp6[4]);
 	DBGA(irp6[5]);
-	DBGA(irp6[6]);
+	DBGA("pre_irp6 values:");
 	DBGA(pre_irp6[0]);
 	DBGA(pre_irp6[1]);
 	DBGA(pre_irp6[2]);
 	DBGA(pre_irp6[3]);
 	DBGA(pre_irp6[4]);
 	DBGA(pre_irp6[5]);
-	DBGA(pre_irp6[6]);
+	if (world->getCurrentHand()->getName().contains("BirdHand")) {
+		DBGA("tfg values:");
+		DBGA(tfg);
+	}
+	if (world->getCurrentHand()->getName().contains("2FGripper")) {
+		DBGA("birdhand values:");
+		DBGA(birdhand[0]);
+		DBGA(birdhand[1]);
+		DBGA(birdhand[2]);
+		DBGA(birdhand[3]);
+		DBGA(birdhand[4]);
+		DBGA(birdhand[5]);
+		DBGA(birdhand[6]);
+		DBGA(birdhand[7]);
+	}
 
 	out << irp6[0];
 	out << irp6[1];
@@ -1033,15 +1055,25 @@ void MainWindow::newClient()
 	out << irp6[3];
 	out << irp6[4];
 	out << irp6[5];
-	out << irp6[6];
 	out << pre_irp6[0];
 	out << pre_irp6[1];
 	out << pre_irp6[2];
 	out << pre_irp6[3];
 	out << pre_irp6[4];
 	out << pre_irp6[5];
-	out << pre_irp6[6];
-
+	if (world->getCurrentHand()->getName().contains("BirdHand")) {
+		out << birdhand[0];
+		out << birdhand[1];
+		out << birdhand[2];
+		out << birdhand[3];
+		out << birdhand[4];
+		out << birdhand[5];
+		out << birdhand[6];
+		out << birdhand[7];
+	}
+	if (world->getCurrentHand()->getName().contains("2FGripper")) {
+		out << tfg;
+	}
     //out.device()->seek(0);
     //out << (quint16)(block.size() - sizeof(qreal)*7);
 
