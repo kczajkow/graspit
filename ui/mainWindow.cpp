@@ -1033,11 +1033,11 @@ void MainWindow::newClient()
 	DBGA(pre_irp6[3]);
 	DBGA(pre_irp6[4]);
 	DBGA(pre_irp6[5]);
-	if (world->getCurrentHand()->getName().contains("BirdHand")) {
+	if (world->getCurrentHand()->getName().contains("2FGripper")) {
 		DBGA("tfg values:");
 		DBGA(tfg);
 	}
-	if (world->getCurrentHand()->getName().contains("2FGripper")) {
+	if (world->getCurrentHand()->getName().contains("BirdHand")) {
 		DBGA("birdhand values:");
 		DBGA(birdhand[0]);
 		DBGA(birdhand[1]);
