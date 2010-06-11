@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<robot type="Robot">
+<robot type="IRp6">
     <palm>link0v2.xml</palm>
     <dof type="r">
         <defaultVelocity>1.0</defaultVelocity>

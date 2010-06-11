@@ -1,3 +1,4 @@
+
 #ifndef IRP6_H
 #include "robot.h"
 
@@ -13,6 +14,7 @@ class IRp6 : public Robot {
   IRp6(World *w,const char *name) : Robot(w,name) {}
 
   /* Solves the inverse kinematics of the IRp6 arm analytically. */
+  /* Adapted from MRROC++ kinematics: kinematics/irp6_postument/kinematic_model_irp6p_with_wrist.h */
   virtual int invKinematics(const transf& endTran,double* dofVals,int chainNum=0);
 };
 
