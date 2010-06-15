@@ -2,6 +2,7 @@
 #include "irp6.h"
 #include "debug.h"
 
+//UWAGA: Wersja niedopracowana!
 int
 IRp6::invKinematics(const transf& endTranLocal,double* dofVals,int)
 {
@@ -12,9 +13,9 @@ IRp6::invKinematics(const transf& endTranLocal,double* dofVals,int)
 		DBGA(dofVec[i]->getVal());
 
   	// Pomocnicze
-	transf endTran = endTranLocal * base->getTran().inverse();
-	mat3 affine = endTran.affine();
-	vec3 translation = endTran.translation();
+	//transf endTran = endTranLocal * base->getTran().inverse();
+	mat3 affine = endTranLocal.affine();
+	vec3 translation = endTranLocal.translation();
 	double local_desired_joints[6];
 	double local_current_joints[6];
 	const double a2 = 455;
@@ -23,10 +24,15 @@ IRp6::invKinematics(const transf& endTranLocal,double* dofVals,int)
 
 	for (int i=0; i<numDOF; ++i)
 		local_current_joints[i] = dofVec[i]->getVal();
-	//local_current_joints[2] += local_current_joints[1];
-	//local_current_joints[3] += local_current_joints[2];
-	local_current_joints[1] -= 1.542;
-	local_current_joints[4] += 4.712;
+	local_current_joints[2] += local_current_joints[1] + M_PI / 2;
+	local_current_joints[3] += local_current_joints[2];
+
+	//local_current_joints[1] -= 1.542;
+	//local_current_joints[4] += M_PI / 2;
+
+	DBGA("\nlocal_current_joints:");
+	for (int i=0; i<numDOF; ++i)
+		DBGA(local_current_joints[i]);
 
 	// Stale
 	const double EPS = 1e-10;
@@ -54,7 +60,7 @@ IRp6::invKinematics(const transf& endTranLocal,double* dofVals,int)
 	Pz = translation[2];
 
 	//  Wyliczenie Theta1.
-	local_desired_joints[0] = atan2(Py, Px);
+	local_desired_joints[0] = (atan2(Py, Px));
 	s0 = sin(local_desired_joints[0]);
 	c0 = cos(local_desired_joints[0]);
 
@@ -167,19 +173,24 @@ IRp6::invKinematics(const transf& endTranLocal,double* dofVals,int)
 	c1 = cos(local_desired_joints[1]);
 	local_desired_joints[2] = atan2(F - a2 * s1, E - a2 * c1);
 
-	local_desired_joints[1] += 1.542;
-	local_desired_joints[4] -= 4.712;
-	//local_current_joints[3] -= local_current_joints[2];
-	//local_current_joints[2] -= local_current_joints[1];
+	DBGA("local_desired_joints:");
+	for (int i=0; i<numDOF; ++i)
+		DBGA(local_desired_joints[i]);
+
+	//local_desired_joints[1] += 1.542;
+	//local_desired_joints[4] -= M_PI / 2;
+	local_current_joints[2] -= local_current_joints[1] + M_PI / 2;
+	local_current_joints[3] -= local_current_joints[2];
 
 	for (int i=0; i<numDOF; ++i)
 		dofVals[i] = local_desired_joints[i];
 
-	DBGA("Obliczone:");
+	DBGA("\nObliczone:");
 	for (int i=0; i<numDOF; ++i)
 		DBGA(dofVals[i]);
 
-  if (false)
-	  return FAILURE;
-  return SUCCESS;
+	if (false) {
+	  return SUCCESS;
+	}
+    return FAILURE;
 }
