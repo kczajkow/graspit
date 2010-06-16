@@ -315,7 +315,19 @@ grasp_tester::testIt()
 #endif
 
     /* First, put hand to starting point outside the object */
-    if (putIt(*it_gr, render) == SUCCESS){
+	transf to = 
+    coordinate_transf(position((*it_gr)->get_graspDirection().get_point().x(),
+			       (*it_gr)->get_graspDirection().get_point().y(),
+			       (*it_gr)->get_graspDirection().get_point().z()), 
+		      ( - (*it_gr)->get_fixedFingerDirection()) * 
+		      (*it_gr)->get_graspDirection().get_dir(),
+		      - (*it_gr)->get_fixedFingerDirection());
+	my_world->toggleAllCollisions(false);
+	bool move_res = my_hand->moveTo(to,50*Contact::THRESHOLD,M_PI/36.0);
+	my_world->toggleAllCollisions(true);
+
+    if (move_res){
+	//if (putIt(*it_gr, render) == SUCCESS){
       
 #ifdef GRASPITDBG
       std::cout << "PL_OUT: set preshape" << std::endl;
@@ -710,17 +722,21 @@ grasp_tester::putIt(plannedGrasp* pg, bool render_in){
 bool
 grasp_tester::preshapeIt(preshape p, bool render_in)
 {
+  int numDOF = my_hand->getNumDOF();
   double a,f1,f2,f3;
   p.get_preshape(a,f1,f2,f3);
-  double v[4];
+  double *v = new double[numDOF];
   
   v[0]=M_PI/180.0 * a;
   v[1]=M_PI/180.0 * f1;
   v[2]=M_PI/180.0 * f2;
   v[3]=M_PI/180.0 * f3;
+  for (int i=4; i<numDOF; ++i)
+	  v[i]=0.0;
   
   my_hand->forceDOFVals(v);
-  
+  delete[] v;
+
   if (render_in)
     myViewer->render();
   return true;

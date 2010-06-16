@@ -209,7 +209,10 @@ grasp_presenter::putHand(finalGraspPosition fgp, bool render){
     std::list<double> tmp = fgp.get_dof();
     std::list<double>::iterator it = tmp.begin();
 
-    my_hand->setTran(fgp.get_finalTran());
+    //my_hand->setTran(fgp.get_finalTran());
+	my_world->toggleAllCollisions(false);
+	my_hand->moveTo(fgp.get_finalTran(),50*Contact::THRESHOLD,M_PI/36.0);
+	my_world->toggleAllCollisions(true);
 
     for (int i=0; i<my_hand->getNumDOF(); i++){
 	my_hand->forceDOFVal(i,*it);
