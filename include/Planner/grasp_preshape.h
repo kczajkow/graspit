@@ -39,7 +39,7 @@
 
 /* finger angles of preshape types for
    BIRD HAND */
-#define PR_bird_circle_Angle 60.0
+#define PR_bird_circle_Angle 54.31
 #define PR_bird_two_opp_one_Angle 0.0
 
 /* finger angles of preshape types for

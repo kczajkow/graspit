@@ -59,7 +59,7 @@
     </dof>
     <chain>
         <transform>
-            <translation>-15 10 25</translation>
+            <translation>-19 13.65 25</translation>
 			<rotation>90 z</rotation>
         </transform>
         <joint type="Revolute">
@@ -101,7 +101,7 @@
     </chain>
     <chain>
         <transform>
-            <translation>15 10 25</translation>
+            <translation>19 13.65 25</translation>
 			<rotation>90 z</rotation>
         </transform>
         <joint type="Revolute">
@@ -143,7 +143,7 @@
     </chain>
 	    <chain>
         <transform>
-            <translation>0 -10 25</translation>
+            <translation>0 -13.65 25</translation>
 			<rotation>-90 z</rotation>
 			<rotation>90 x</rotation>
         </transform>

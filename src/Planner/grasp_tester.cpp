@@ -654,7 +654,7 @@ grasp_tester::orderGraspListByQuality(std::list<plannedGrasp*>& grl){
   grl.sort(compareGraspQM());
 #endif
   
-  while((!grl.empty()) && ((*grl.begin())->get_quality() <= 0.0)){
+  while((!grl.empty()) && ((*grl.begin())->get_quality() <= QUALITY_MIN_THRESHOLD)){
     delete *(grl.begin());
     grl.pop_front();
   }
