@@ -19,9 +19,9 @@ mkl {
 	}
 	QMAKE_LIBDIR += $(CLAPACKDIR)/ia32/lib $(CLAPACKDIR)/LIB/Win32
 	graspitdbg {
-		LIBS += BLASd.lib clapackd.lib
+		LIBS += BLASd.lib clapackd.lib libf2cd.lib
 	} else {
-		LIBS += BLAS.lib clapack.lib
+		LIBS += BLAS.lib clapack.lib libf2c.lib
 	}
 	INCLUDEPATH += $(CLAPACKDIR)/include
 	HEADERS += include/lapack_wrappers.h
@@ -48,12 +48,12 @@ DEFINES 	+= _CRT_SECURE_NO_DEPRECATE
 #------------------------------------ add-ons --------------------------------------------
 
 mosek {
-	!exists($(MOSEK5_0_INSTALLDIR)) {
-		error("Mosek not installed or MOSEK5_0_INSTALLDIR environment variable not set")
+	!exists($(MOSEK6_0_INSTALLDIR)) {
+		error("Mosek not installed or MOSEK6_0_INSTALLDIR environment variable not set")
 	}
-	INCLUDEPATH += $(MOSEK5_0_INSTALLDIR)/tools/platform/win/h
+	INCLUDEPATH += $(MOSEK6_0_INSTALLDIR)/tools/platform/win32x86/h
 	#no separate debug or release versions of the lib
-	LIBS += $(MOSEK5_0_INSTALLDIR)/tools/platform/win/dll/mosek5_0.lib
+	LIBS += $(MOSEK6_0_INSTALLDIR)/tools/platform/win32x86/bin/mosek6_0.lib
 }
 
 boost {

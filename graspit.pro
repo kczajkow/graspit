@@ -17,7 +17,7 @@ COLLISION = graspit_collision
 LAPACK = clapack
 
 #build and use interface with Columbia Grasp Database
-#CONFIG += cgdb
+CONFIG += cgdb
 
 #link against the Hardware library (included with this distribution) which 
 #provides access to various hardware. Hardware library must be compiled
@@ -25,7 +25,7 @@ LAPACK = clapack
 CONFIG += hardwarelib
 
 #link against Mosek QP solver (must be installed separately)
-#CONFIG += mosek
+CONFIG += mosek
 
 #enable linking against boost (must be installed separately)
 #CONFIG += boost

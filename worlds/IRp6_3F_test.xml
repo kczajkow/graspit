@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<world>
+	<graspableBody>
+		<filename>models/objects/cylinder.xml</filename>
+		<transform>
+			<fullTransform>(+1 +0 +0 +0)[-49.5121 +1.19569 +26.3996]</fullTransform>
+		</transform>
+	</graspableBody>
+	<robot>
+		<filename>models/robots/MyBirdHand/BirdHand.xml</filename>
+		<dofValues>+0 +0 +0 +0 +0 +0 +0 +0 </dofValues>
+		<transform>
+			<fullTransform>(+1 +0 +0 +0)[+1.31758e-05 +3.55631 -124.65]</fullTransform>
+		</transform>
+	</robot>
+	<camera>
+		<position>+256.924 +218.449 +126.403</position>
+		<orientation>-0.276811 +0.501952 +0.180216 +0.799339</orientation>
+		<focalDistance>+339.874</focalDistance>
+	</camera>
+</world>

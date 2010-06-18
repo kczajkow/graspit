@@ -35,6 +35,7 @@ HEADERS	+= include/barrett.h \
 	include/graspRecord.h \
 	include/gws.h \
 	include/gwsprojection.h \
+	include/irp6.h \	
 	include/ivmgr.h \
 	include/jacobian.h \
 	include/joint.h \
@@ -117,6 +118,7 @@ SOURCES	+= src/arch.cpp \
 	src/gws.cpp \
 	src/gwsprojection.cpp \
 	src/humanHand.cpp \
+	src/irp6.cpp \	
 	src/ivmgr.cpp \
 	src/jacobian.cpp \
 	src/joint.cpp \
