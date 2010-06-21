@@ -175,4 +175,5 @@
         <link dynamicJointType="Revolute">p30.xml</link>
         <link dynamicJointType="Revolute">p26.xml</link>
     </chain>
+	    <virtualContacts>virtual/all_9.vgr</virtualContacts>
 </robot>

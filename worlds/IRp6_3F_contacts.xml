@@ -1,0 +1,69 @@
+<?xml version="1.0" ?>
+<world>
+	<graspableBody>
+		<filename>models/objects/sphere.xml</filename>
+		<transform>
+			<fullTransform>(+1 +0 +0 +0)[-52.0132 +24.5469 +47.0274]</fullTransform>
+		</transform>
+	</graspableBody>
+	<graspableBody>
+		<filename>models/objects/sphere.xml</filename>
+		<transform>
+			<fullTransform>(+1 +0 +0 +0)[-30.9547 -38.8192 +94.847]</fullTransform>
+		</transform>
+	</graspableBody>
+	<graspableBody>
+		<filename>models/objects/sphere.xml</filename>
+		<transform>
+			<fullTransform>(+1 +0 +0 +0)[-31.6706 -25.6403 +47.6677]</fullTransform>
+		</transform>
+	</graspableBody>
+	<graspableBody>
+		<filename>models/objects/sphere.xml</filename>
+		<transform>
+			<fullTransform>(+0.988643 +0 +0 +0.150284)[-50.7584 +38.8486 +93.299]</fullTransform>
+		</transform>
+	</graspableBody>
+	<graspableBody>
+		<filename>models/objects/sphere.xml</filename>
+		<transform>
+			<fullTransform>(+0.993335 -0.0657502 -0.0651724 -0.068662)[-13.4763 +38.817 +91.8911]</fullTransform>
+		</transform>
+	</graspableBody>
+	<graspableBody>
+		<filename>models/objects/sphere.xml</filename>
+		<transform>
+			<fullTransform>(+1 +0 +0 +0)[-13.7281 +24.3153 +46.8928]</fullTransform>
+		</transform>
+	</graspableBody>
+	<graspableBody>
+		<filename>models/objects/sphere.xml</filename>
+		<transform>
+			<fullTransform>(+1 +0 +0 +0)[-12.1885 +38.811 +63.0109]</fullTransform>
+		</transform>
+	</graspableBody>
+	<graspableBody>
+		<filename>models/objects/sphere.xml</filename>
+		<transform>
+			<fullTransform>(+1 +0 +0 +0)[-31.9927 -38.8207 +63.0779]</fullTransform>
+		</transform>
+	</graspableBody>
+	<graspableBody>
+		<filename>models/objects/sphere.xml</filename>
+		<transform>
+			<fullTransform>(+1 +0 +0 +0)[-51.3753 +38.845 +62.873]</fullTransform>
+		</transform>
+	</graspableBody>
+	<robot>
+		<filename>models/robots/MyBirdHand/BirdHand.xml</filename>
+		<dofValues>+0 +0 +0 +0 +0 +0 +0 +0 </dofValues>
+		<transform>
+			<fullTransform>(+1 +0 +0 +0)[-31.8325 -4.95685e-06 -0.108197]</fullTransform>
+		</transform>
+	</robot>
+	<camera>
+		<position>-238.146 -62.579 +157.858</position>
+		<orientation>-0.463703 +0.259001 +0.523646 -0.666103</orientation>
+		<focalDistance>+227.826</focalDistance>
+	</camera>
+</world>
