@@ -61,6 +61,7 @@
         <transform>
             <translation>-19 13.65 25</translation>
 			<rotation>90 z</rotation>
+			<rotation>5 y</rotation>
         </transform>
         <joint type="Revolute">
             <theta>d0</theta>
@@ -103,6 +104,7 @@
         <transform>
             <translation>19 13.65 25</translation>
 			<rotation>90 z</rotation>
+			<rotation>5 y</rotation>
         </transform>
         <joint type="Revolute">
             <theta>d3</theta>
@@ -146,6 +148,7 @@
             <translation>0 -13.65 25</translation>
 			<rotation>-90 z</rotation>
 			<rotation>90 x</rotation>
+			<rotation>-5 z</rotation>
         </transform>
         <joint type="Revolute">
             <theta>d6+30</theta>
