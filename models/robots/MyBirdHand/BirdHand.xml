@@ -61,7 +61,7 @@
         <transform>
             <translation>-19 13.65 25</translation>
 			<rotation>90 z</rotation>
-			<rotation>5 y</rotation>
+			<rotation>-5 y</rotation>
         </transform>
         <joint type="Revolute">
             <theta>d0</theta>
@@ -77,14 +77,14 @@
             <a>45</a>
             <alpha>0</alpha>
             <minValue>0</minValue>
-            <maxValue>60</maxValue>
+            <maxValue>30</maxValue>
         </joint>
         <joint type="Revolute">
             <theta>d1*-1+60</theta>
             <d>0</d>
             <a>30</a>
             <alpha>0</alpha>
-            <minValue>-60</minValue>
+            <minValue>-30</minValue>
             <maxValue>0</maxValue>
         </joint>
         <joint type="Revolute">
@@ -93,7 +93,7 @@
             <a>26.5</a>
             <alpha>0</alpha>
             <minValue>0</minValue>
-            <maxValue>60</maxValue>
+            <maxValue>25</maxValue>
         </joint>
         <link dynamicJointType="Revolute">yoke.xml</link>
         <link dynamicJointType="Revolute">p45.xml</link>
@@ -104,7 +104,7 @@
         <transform>
             <translation>19 13.65 25</translation>
 			<rotation>90 z</rotation>
-			<rotation>5 y</rotation>
+			<rotation>-5 y</rotation>
         </transform>
         <joint type="Revolute">
             <theta>d3</theta>
@@ -120,14 +120,14 @@
             <a>45</a>
             <alpha>0</alpha>
             <minValue>0</minValue>
-            <maxValue>60</maxValue>
+            <maxValue>30</maxValue>
         </joint>
         <joint type="Revolute">
             <theta>d4*-1+60</theta>
             <d>0</d>
             <a>30</a>
             <alpha>0</alpha>
-            <minValue>-60</minValue>
+            <minValue>-30</minValue>
             <maxValue>0</maxValue>
         </joint>
         <joint type="Revolute">
@@ -136,7 +136,7 @@
             <a>26.5</a>
             <alpha>0</alpha>
             <minValue>0</minValue>
-            <maxValue>60</maxValue>
+            <maxValue>25</maxValue>
         </joint>
         <link dynamicJointType="Revolute">yoke.xml</link>
         <link dynamicJointType="Revolute">p45.xml</link>
@@ -148,7 +148,7 @@
             <translation>0 -13.65 25</translation>
 			<rotation>-90 z</rotation>
 			<rotation>90 x</rotation>
-			<rotation>-5 z</rotation>
+			<rotation>5 z</rotation>
         </transform>
         <joint type="Revolute">
             <theta>d6+30</theta>
@@ -156,14 +156,14 @@
             <a>45</a>
             <alpha>0</alpha>
             <minValue>0</minValue>
-            <maxValue>60</maxValue>
+            <maxValue>30</maxValue>
         </joint>
         <joint type="Revolute">
             <theta>d6*-1+60</theta>
             <d>0</d>
             <a>30</a>
             <alpha>0</alpha>
-            <minValue>-60</minValue>
+            <minValue>-30</minValue>
             <maxValue>0</maxValue>
         </joint>
         <joint type="Revolute">
@@ -172,7 +172,7 @@
             <a>26.5</a>
             <alpha>0</alpha>
             <minValue>0</minValue>
-            <maxValue>60</maxValue>
+            <maxValue>25</maxValue>
         </joint>
         <link dynamicJointType="Revolute">p45.xml</link>
         <link dynamicJointType="Revolute">p30.xml</link>

@@ -1,23 +1,48 @@
 <?xml version="1.0" ?>
 <world>
-	<graspableBody>
-		<filename>models/objects/cylinder.xml</filename>
+	<obstacle>
+		<filename>models/obstacles/floor.xml</filename>
 		<transform>
-			<fullTransform>(+0.962076 +0.242275 -0.0707006 -0.103508)[+246.503 +40.8285 +740.124]</fullTransform>
+			<fullTransform>(+1 +0 +0 +0)[-2320.07 -3611 -430.029]</fullTransform>
+		</transform>
+	</obstacle>
+	<obstacle>
+		<filename>models/obstacles/table012.xml</filename>
+		<transform>
+			<fullTransform>(+0.707107 +0 +0 -0.707107)[-750 +1105 +259.981]</fullTransform>
+		</transform>
+	</obstacle>
+	<graspableBody>
+		<filename>models/objects/RubikCube.xml</filename>
+		<transform>
+			<fullTransform>(+0.613167 -0.357195 +0.605155 +0.360867)[-85.9491 +953.346 +604.283]</fullTransform>
 		</transform>
 	</graspableBody>
+	<obstacle>
+		<filename>models/objects/book.xml</filename>
+		<transform>
+			<fullTransform>(+0 +0.709895 +0 +0.704308)[-103.47 +942.94 +564.083]</fullTransform>
+		</transform>
+	</obstacle>
 	<robot>
 		<filename>models/robots/MyIrp6/Irp6.xml</filename>
-		<dofValues>+0.164133 -0.134648 +0.0454147 -0.00600517 +0.0748603 -0.0168098 </dofValues>
+		<dofValues>+1.68925 +0.133111 -0.0842277 -0.0582056 -0.00829713 +0.624059 </dofValues>
 		<transform>
-			<fullTransform>(+1 +0 +0 +0)[-372.666 +0.000714942 +4.27854]</fullTransform>
+			<fullTransform>(+1 +0 +0 +0)[+0 +0 +0]</fullTransform>
 		</transform>
 	</robot>
 	<robot>
 		<filename>models/robots/MyBirdHand/BirdHand.xml</filename>
 		<dofValues>+0 +0 +0 +0 +0 +0 +0 +0 </dofValues>
 		<transform>
-			<fullTransform>(-0.00276451 -0.637787 -0.767833 -0.0604339)[+419.764 +138.447 +958.631]</fullTransform>
+			<fullTransform>(-0.00217489 -0.25013 -0.968192 -0.00584858)[-107.642 +914.618 +795.019]</fullTransform>
+		</transform>
+	</robot>
+	<robot>
+		<filename>models/robots/MyIrp6/Irp6.xml</filename>
+		<dofValues>+0 +0 +0 +0 +0 +0 </dofValues>
+		<transform>
+			<fullTransform>(+1 +0 +0 +0)[+0 +2080 +0]</fullTransform>
 		</transform>
 	</robot>
 	<connection>
@@ -25,12 +50,12 @@
 		<parentChain>+0</parentChain>
 		<childRobot>+1</childRobot>
 		<transform>
-			<fullTransform>(+1 +0 +0 +0)[+0 +0 +0]</fullTransform>
+			<fullTransform>(+1 +0 +0 +0)[+0 +0 +50]</fullTransform>
 		</transform>
 	</connection>
 	<camera>
-		<position>+1099.26 +1182.83 +1169.47</position>
-		<orientation>+0.187299 +0.581758 +0.731064 +0.303352</orientation>
-		<focalDistance>+1756.48</focalDistance>
+		<position>-908.165 +1142.08 +683.612</position>
+		<orientation>-0.464615 +0.568379 +0.56433 -0.377638</orientation>
+		<focalDistance>+963.979</focalDistance>
 	</camera>
 </world>
