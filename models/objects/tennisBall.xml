@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<root>
+	<material>plastic</material>
+	<useFlockOfBirds>1.0</useFlockOfBirds>
+	<geometryFile type="Inventor">tennisBall.iv</geometryFile>
+</root>

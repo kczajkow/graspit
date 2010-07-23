@@ -1,0 +1,30 @@
+#Inventor V2.1 ascii
+
+Separator {
+	Rotation {
+		rotation 0 0 1 -1.57
+	}
+	Rotation {
+		rotation 1 0 0 3.14
+	}
+	Cube {width 30 height 20 depth 20}
+	Separator {
+		Translation {
+			translation 5 0 -11
+		}
+		Cube{width 20 height 20 depth 2}
+	}
+	Separator {
+		Translation {
+			translation 0 0 38
+		}
+		Material {
+		ambientColor .9 .9 .1
+		diffuseColor .9 .9 .1
+		specularColor .9 .9 .1
+		shininess .28
+		transparency .6
+		}
+		Sphere { radius 31 }
+	}
+}

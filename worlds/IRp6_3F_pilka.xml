@@ -13,7 +13,7 @@
 		</transform>
 	</obstacle>
 	<graspableBody>
-		<filename>models/objects/RubikCube.xml</filename>
+		<filename>models/objects/tennisBall.xml</filename>
 		<transform>
 			<fullTransform>(+0.718731 +0.0255601 -0.694233 +0.0285173)[-122.226 +946.76 +608.245]</fullTransform>
 		</transform>
