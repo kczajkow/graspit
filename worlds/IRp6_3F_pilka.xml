@@ -49,6 +49,7 @@
 		<parentRobot>+0</parentRobot>
 		<parentChain>+0</parentChain>
 		<childRobot>+1</childRobot>
+		<mountFilename>models/robots/MyBirdHand/iv/birdhandmount.xml</mountFilename>
 		<transform>
 			<fullTransform>(+1 +0 +0 +0)[+0 +0 +40]</fullTransform>
 		</transform>
