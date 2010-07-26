@@ -1,20 +1,7 @@
+//!!! demands linking with: Ws2_32.lib !!!
+#include <winsock2.h>
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <io.h>
-#include <sys/types.h>
-//#include <inttypes.h>
-#include <fcntl.h>
-#include <string.h>
-//#include <pthread.h>
-//#include <unistd.h>
-#include <time.h>
-//#include <socket.h>
-#include <winsock2.h>
-//#include <arpa/inet.h>
-#include <errno.h>
-//#include <poll.h>
-//#include <netdb.h>
 #define _USE_MATH_DEFINES
 #include <math.h>
 
@@ -29,21 +16,20 @@
 
 int Pcbird::instantRead()
 {
-	//do {;}
-	//while (!pcbird_data_avail(fd));
-
-	//pcbird_get_streaming_position(fd, &p);
 	pcbird_get_single_position(fd, &p);
 
+	//calibration
+	//TODO: move to config file
 	angles[0] = -1.0 * p.a + 90;
 	angles[1] = -1.0 * p.g + 0;
 	angles[2] = -1.0 * p.b + 0;
 	position[0] = 1.0 * p.x*1000 - 395;
 	position[1] = -1.0 * p.y*1000 + 1133;
 	position[2] = -1.0 * p.z*1000 + 360;
-	float Zang = angles[0] * M_PI / 180;
-	float Yang = angles[1] * M_PI / 180;
-	float Xang = angles[2] * M_PI / 180;
+	double Zang = angles[0] * M_PI / 180;
+	double Yang = angles[1] * M_PI / 180;
+	double Xang = angles[2] * M_PI / 180;
+
 	//rotationMatrix[0] = cos(Yang)*cos(Zang);
 	//rotationMatrix[1] = cos(Yang)*sin(Zang);
 	//rotationMatrix[2] = -sin(Yang);
@@ -53,6 +39,8 @@ int Pcbird::instantRead()
 	//rotationMatrix[6] = sin(Xang)*sin(Zang)+cos(Xang)*sin(Yang)*cos(Zang);
 	//rotationMatrix[7] = -sin(Xang)*cos(Zang)+cos(Xang)*sin(Yang)*sin(Zang);
 	//rotationMatrix[8] = cos(Xang)*cos(Yang);
+
+	//transformation copied from PCbird manual
 	rotationMatrix[0] = cos(Yang)*cos(Zang);
 	rotationMatrix[1] = -cos(Xang)*sin(Zang)+sin(Xang)*sin(Yang)*cos(Zang);
 	rotationMatrix[2] = sin(Xang)*sin(Zang)+cos(Xang)*sin(Yang)*cos(Zang);
@@ -74,19 +62,17 @@ Pcbird::Pcbird()
 
 	if(fd <= 0)
 		fprintf(stderr,"B³¹d po³¹czenia z Pcbird!!!\n");
-
-    //pcbird_start_streaming(fd);
 }
 
 Pcbird::~Pcbird()
 {
-	//pcbird_stop_streaming(fd);
 	pcbird_disconnect(fd);
 }
 
 int Pcbird::pcbird_connect(const char *addr, unsigned short port)
 {
-    int s, len;
+    SOCKET s; 
+	int len;
     struct sockaddr_in remote;
     struct hostent *he;
     
@@ -97,7 +83,7 @@ int Pcbird::pcbird_connect(const char *addr, unsigned short port)
     
     if(!he) return -1;
     
-    if ((s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1) 
+    if ((s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == INVALID_SOCKET) 
         return -1;
 
     remote.sin_family = AF_INET;

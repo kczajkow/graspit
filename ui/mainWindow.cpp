@@ -933,40 +933,15 @@ void MainWindow::archBuilder()
 	create_arch(world, innerRadius, outerRadius, thickness, nBlocks, addSupports);
 }
 
+//Starts and stops listening for MRROC++ connections
 void MainWindow::irp6_server()
 {
 	if (mUI->actionIRp6_server->text() == "IRp6 Server Start") {
 		DBGA("IRp6 Server is on...");
 
-		//int s, len, fromlen;
-		//char Buffer[128];
-		//struct sockaddr_in local, from;
-		//SOCKET listen_socket;
-		//WSADATA wsa;
-		//WSAStartup(MAKEWORD(1,1),&wsa);
-
-		//local.sin_family = AF_INET;
-		//local.sin_port = htons(5001);
-		//local.sin_addr.s_addr = INADDR_ANY;
-
-		//listen_socket = socket(AF_INET, SOCK_STREAM, 0);
-		//bind(listen_socket, (struct sockaddr*)&local, sizeof(local));
-		//listen(listen_socket, 5);
-
-		//while (1) {
-		//	accept(listen_socket, (struct sockaddr*)&from, &fromlen);
-
-		//	Buffer[0] = 'A';
-		//	send(listen_socket, Buffer, sizeof(Buffer), 0);
-		//	recv(listen_socket, Buffer, sizeof(Buffer), 0);
-
-		//	DBGA("Info from client:");
-		//	DBGA(Buffer);
-		//}
-
         tcpServer = new QTcpServer();
 		if (!tcpServer->listen(QHostAddress::Any, 5001)) {
-			QMessageBox::critical(mWindow, tr("Fortune Server"),
+			QMessageBox::critical(mWindow, tr("IRp6 Server"),
                                   tr("Unable to start the server: %1.").arg(tcpServer->errorString()));
             tcpServer->close();
             return;
@@ -979,8 +954,6 @@ void MainWindow::irp6_server()
 	else {
 		DBGA("IRp6 Server is off...");
 
-		//WSACleanup();
-
 		tcpServer->close();
 		delete tcpServer;
 
@@ -988,6 +961,7 @@ void MainWindow::irp6_server()
 	}
 }
 
+//Reaction to MRROC++ connection
 void MainWindow::newClient()
 {
 	DBGA("newClient()");
@@ -1049,6 +1023,7 @@ void MainWindow::newClient()
 		DBGA(birdhand[7]);
 	}
 
+	//send the data to MRROC++
 	out << irp6[0];
 	out << irp6[1];
 	out << irp6[2];
@@ -1074,8 +1049,6 @@ void MainWindow::newClient()
 	if (world->getCurrentHand()->getName().contains("2FGripper")) {
 		out << tfg;
 	}
-    //out.device()->seek(0);
-    //out << (quint16)(block.size() - sizeof(qreal)*7);
 
     QTcpSocket *clientConnection = tcpServer->nextPendingConnection();
     connect(clientConnection, SIGNAL(disconnected()),
