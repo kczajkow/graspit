@@ -1,7 +1,7 @@
 #Inventor V2.1 ascii
 
 Separator { # Body
-	  Transform { translation 0 0 0 }
+	  Transform { translation 0 0 -38 }
 	  Material { # A bronze color:
 	  ambientColor .33 .22 .27
 	  diffuseColor .78 .57 .11

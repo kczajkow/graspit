@@ -13,29 +13,29 @@
 		</transform>
 	</obstacle>
 	<graspableBody>
-		<filename>models/objects/RubikCube.xml</filename>
+		<filename>models/objects/tennisBall.xml</filename>
 		<transform>
-			<fullTransform>(+0.712052 +0.17088 -0.64978 +0.203882)[-167.265 +918.576 +636.318]</fullTransform>
+			<fullTransform>(+0.44498 -0.386945 +0.759454 +0.274765)[-105.036 +965.959 +622.7]</fullTransform>
 		</transform>
 	</graspableBody>
 	<obstacle>
 		<filename>models/objects/book.xml</filename>
 		<transform>
-			<fullTransform>(+0 +0.709895 +0 +0.704308)[-151.148 +942.94 +584.782]</fullTransform>
+			<fullTransform>(+0 +0.709895 +0 +0.704308)[-103.832 +944.724 +518.366]</fullTransform>
 		</transform>
 	</obstacle>
 	<robot>
 		<filename>models/robots/MyIrp6/Irp6.xml</filename>
-		<dofValues>+1.64327 +0.209188 -0.21923 +0.0130315 +0.034727 +0.0188364 </dofValues>
+		<dofValues>+1.75339 +0.0468567 +0.341439 -1.04501 -0.196676 +2.11033 </dofValues>
 		<transform>
 			<fullTransform>(+1 +0 +0 +0)[+0 +0 +0]</fullTransform>
 		</transform>
 	</robot>
 	<robot>
 		<filename>models/robots/MyBirdHand/BirdHand.xml</filename>
-		<dofValues>+0 +0 +0 +0 +0 +0 +0 +0 </dofValues>
+		<dofValues>+0.947888 +0.4875 +0.24375 -0.947888 +0.4875 +0.24375 +0.23125 +0.115625 </dofValues>
 		<transform>
-			<fullTransform>(+0.0172763 +0.0267837 -0.999489 +0.00228554)[-73.7546 +951.206 +836.323]</fullTransform>
+			<fullTransform>(+0.254204 -0.791823 -0.511257 -0.216823)[-132.529 +863.028 +731.969]</fullTransform>
 		</transform>
 	</robot>
 	<robot>
@@ -55,8 +55,8 @@
 		</transform>
 	</connection>
 	<camera>
-		<position>+367.524 +1394.02 +902.711</position>
-		<orientation>+0.215986 +0.539403 +0.743227 +0.331674</orientation>
-		<focalDistance>+646.177</focalDistance>
+		<position>+645.509 +510.591 +841.63</position>
+		<orientation>+0.56137 +0.300184 +0.368246 +0.677604</orientation>
+		<focalDistance>+872.252</focalDistance>
 	</camera>
 </world>

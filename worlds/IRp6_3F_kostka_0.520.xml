@@ -15,27 +15,27 @@
 	<graspableBody>
 		<filename>models/objects/RubikCube.xml</filename>
 		<transform>
-			<fullTransform>(+0.712052 +0.17088 -0.64978 +0.203882)[-167.265 +918.576 +636.318]</fullTransform>
+			<fullTransform>(+0.711827 +0.170856 -0.650145 +0.203523)[-167.544 +918.408 +636.43]</fullTransform>
 		</transform>
 	</graspableBody>
 	<obstacle>
 		<filename>models/objects/book.xml</filename>
 		<transform>
-			<fullTransform>(+0 +0.709895 +0 +0.704308)[-151.148 +942.94 +584.782]</fullTransform>
+			<fullTransform>(+0 +0.709895 +0 +0.704308)[-151.471 +939.451 +543.908]</fullTransform>
 		</transform>
 	</obstacle>
 	<robot>
 		<filename>models/robots/MyIrp6/Irp6.xml</filename>
-		<dofValues>+1.64327 +0.209188 -0.21923 +0.0130315 +0.034727 +0.0188364 </dofValues>
+		<dofValues>+1.70934 +0.227456 -0.0714788 -0.0987373 +0.0805126 +2.74132 </dofValues>
 		<transform>
 			<fullTransform>(+1 +0 +0 +0)[+0 +0 +0]</fullTransform>
 		</transform>
 	</robot>
 	<robot>
 		<filename>models/robots/MyBirdHand/BirdHand.xml</filename>
-		<dofValues>+0 +0 +0 +0 +0 +0 +0 +0 </dofValues>
+		<dofValues>+0 +0.31375 +0.186875 +0 +0.30875 +0.186875 +0.30875 +0.186875 </dofValues>
 		<transform>
-			<fullTransform>(+0.0172763 +0.0267837 -0.999489 +0.00228554)[-73.7546 +951.206 +836.323]</fullTransform>
+			<fullTransform>(-0.0230987 -0.96306 -0.264726 +0.0436161)[-141.46 +935.891 +713.988]</fullTransform>
 		</transform>
 	</robot>
 	<robot>
@@ -55,8 +55,8 @@
 		</transform>
 	</connection>
 	<camera>
-		<position>+367.524 +1394.02 +902.711</position>
-		<orientation>+0.215986 +0.539403 +0.743227 +0.331674</orientation>
-		<focalDistance>+646.177</focalDistance>
+		<position>+868.129 +614.797 +824.219</position>
+		<orientation>+0.488712 +0.395123 +0.432965 +0.646204</orientation>
+		<focalDistance>+1177.41</focalDistance>
 	</camera>
 </world>
