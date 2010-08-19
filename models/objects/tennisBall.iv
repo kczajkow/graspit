@@ -16,6 +16,15 @@ Separator {
 	}
 	Separator {
 		Translation {
+			translation -20 0 -5
+		}
+		Rotation {
+			rotation 0 0 1 1.57
+		}
+		Cylinder {radius 3 height 10}
+	}
+	Separator {
+		Translation {
 			translation 0 0 38
 		}
 		Material {
